@@ -2,9 +2,9 @@
 
 int main()
 {
-	gamesource game;
-	game.initaliseGame();
-	game.gameLoop();
+	GameSource game;
+	game.InitialiseGame();
+	game.GameLoop();
 	return 0;
 }
 

@@ -1,31 +1,31 @@
 #include "Player.h"
 
 
-void player::shoot(){	
+void Player::Shoot(){	
 
 }
 
-void player::move() {
+void Player::Move() {
 
 }
 
-void player::update() {
+void Player::Update() {
 
 	// left arrow key
 	if (GetKeyState(65) & 0x8000) {
-		if (m_xpos < 1){
-			m_xpos--;
+		if (xpos_ < 1){
+			xpos_--;
 		}
 	}
 
 	// right arrow key
 	else if (GetKeyState(68) & 0x8000) {
-		if (m_xpos < 79) {
-			m_xpos++;
+		if (xpos_ < 79) {
+			xpos_++;
 		}
 	}
 }
 
-void player::draw() {
+void Player::Draw() {
 	std::cout << "A" << std::endl;
 }

@@ -1,28 +1,28 @@
 #include "barrier.h"
 
-barrier::barrier()
+Barrier::Barrier()
 {
 }
 
-void barrier::init_barrier()
+void Barrier::InitialiseBarrier()
 {
 }
 
-void barrier::take_damage(const int& dmg)
+void Barrier::TakeDamage(const int& dmg)
 {
-	this->m_health -= dmg;
+	this->health_ -= dmg;
 
-	if (m_health <= 0) {
-		this->~barrier();
+	if (health_ <= 0) {
+		this->~Barrier();
 	}
 }
 
-void barrier::draw()
+void Barrier::Draw()
 {
 	// could also do {} [] for differing levels of HP on the barriers. This works for now.
-	this->m_health <= 1 ? std::cout << 'x' : std::cout << 'X';
+	this->health_ <= 1 ? std::cout << 'x' : std::cout << 'X';
 }
 
-barrier::~barrier()
+Barrier::~Barrier()
 {	
 }

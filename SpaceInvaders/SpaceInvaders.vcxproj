@@ -158,6 +158,10 @@
     <ClInclude Include="missile.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="gamewindow.h" />
+    <ClInclude Include="screenbuffer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Notes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,19 +1,19 @@
 #include "gamewindow.h"
 
-void gamewindow::set_window(int width, int height) {
+void GameWindow::SetWindow(int width, int height) {
 
-	this->m_width = width;
-	this->m_height = height;
+	this->width_ = width;
+	this->height_ = height;
 
 	SMALL_RECT windowSize = { 10, 10, width, height };
-	if (!SetConsoleWindowInfo(hConsole, TRUE, &windowSize))
+	if (!SetConsoleWindowInfo(hConsole_, TRUE, &windowSize))
 	{
-		cout << "SetConsoleWindowInfo failed with error " << GetLastError() << endl;
+		std::cout << "SetConsoleWindowInfo failed with error " << GetLastError() << std::endl;
 	}
 
 	if (!SetConsoleTitle(L"Space Invaders"))
 	{
-		cout << "SetConsoleTitle failed with error " << GetLastError() << endl;
+		std::cout << "SetConsoleTitle failed with error " << GetLastError() << std::endl;
 	}
 }
 

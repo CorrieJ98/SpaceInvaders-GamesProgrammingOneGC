@@ -68,5 +68,11 @@
     <ClInclude Include="gamewindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="screenbuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Notes.txt" />
   </ItemGroup>
 </Project>

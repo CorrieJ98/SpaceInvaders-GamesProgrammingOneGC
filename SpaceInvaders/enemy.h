@@ -1,18 +1,18 @@
 #pragma once
 #include "gameobject.h"
 
-class enemy : public gameobject
+class Enemy : public GameObject
 {
 public:
-	enemy();
+	Enemy();
 
-	void shoot();
-	void die();
+	void Shoot();
+	void Die();
 
-	void update() override;
-	void draw() override;
+	void Update() override;
+	void Draw() override;
 
-	~enemy();
+	~Enemy();
 
 private:
 	int m_health = 1;

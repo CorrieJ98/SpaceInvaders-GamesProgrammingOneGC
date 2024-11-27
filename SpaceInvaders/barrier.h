@@ -2,17 +2,17 @@
 #include <iostream>
 #include "gameobject.h"
 
-class barrier : public gameobject
+class Barrier : public GameObject
 {
 public:
-	barrier();
-	void init_barrier();
-	void take_damage(const int& dmg);
-	void draw() override;
+	Barrier();
+	void InitialiseBarrier();
+	void TakeDamage(const int& dmg);
+	void Draw() override;
 
-	~barrier();
+	~Barrier();
 
 private:
-	int m_health = 2;
+	int health_ = 2;
 };
 

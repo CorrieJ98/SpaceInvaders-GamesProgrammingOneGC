@@ -1,0 +1,2 @@
+std::vector for barriers uses 7kb of data. Switch that to a fucking array
+Cursor handling!!!!!

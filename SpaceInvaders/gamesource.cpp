@@ -1,58 +1,77 @@
 #include "gamesource.h"
 
-void gamesource::initaliseGame()
+void GameSource::InitialiseGame()
 {
-	gameWindow.set_window(160, 50);
-	player.gameobject::draw();
-	player.draw();
-};
+	game_window_.SetWindow(160, 50);
+	player_.GameObject::Draw();
+	player_.Draw();
+}
+void GameSource::SetGameState(int state)
+{
+	// TODO fix this truly disgusting line of code...
+	game_state_ = static_cast<GameState>(state);
+}
 
-void gamesource::set_barrier_positions() 
+void GameSource::SetBarrierPositions() 
 {
 	for (int i = 0; i < 20; i++) {
-		barriers.push_back(barrier());
+		barriers_.push_back(Barrier());
 	}
 
 	for (int i = 0; i < 5; i++) {
-		barriers[i].set_xposition(i + 10);
+		barriers_[i].SetXPos(i + 10);
 	}
 
 	for (int i = 5; i < 10; i++) {
-		barriers[i].set_xposition(i + 25);
+		barriers_[i].SetXPos(i + 25);
 	}
 
 	for (int i = 10; i < 15; i++) {
-		barriers[i].set_xposition(i + 40);
+		barriers_[i].SetXPos(i + 40);
 	}
 	for (int i = 15; i < 20; i++) {
-		barriers[i].set_xposition(i + 55);
+		barriers_[i].SetXPos(i + 55);
 	}
 }
 
-void gamesource::update_barrier_positions()
+void GameSource::UpdateBarrierPositions()
 {
 }
 
-void gamesource::set_player_position()
+void GameSource::SetPlayerPosition()
 {
 }
 
-void gamesource::update_player_position()
+void GameSource::UpdatePlayerPosition()
 {
 }
 
-void gamesource::processInput()
+void GameSource::ProcessInput()
 {
-	player.update();
+	player_.Update();	
 };
 
-void gamesource::updateGame()
+void GameSource::UpdateGame()
 {
 };
 
-void gamesource::drawGame(int width, int height)
+void GameSource::CreateScreenBuffers(int width, int height)
 {
-	system("cls");
+	front_buffer_ = ScreenBuffer(width, height);
+	rear_buffer_ = ScreenBuffer(width, height);
+}
+
+void GameSource::DrawGame(int width, int height)
+{
+	for (int i = 0; i < height; ++i) {
+		for (int j = 0; j < width; ++j) {
+			std::cout << front_buffer_.GetChar(j, i);
+		}
+	}
+
+#pragma region legacy code
+	// obsolete
+	/*system("cls");
 	for (int i = 0; i < height; i++)
 	{
 		bool is_drawn = false;	// new line if nothing is drawn
@@ -61,8 +80,8 @@ void gamesource::drawGame(int width, int height)
 		for (int j = 0; j < width; j++) {
 			bool is_alien_drawn = false;
 			for (int a = 0; a < 20; a++) {
-				if ((aliens[a].get_yposition() == i) && (aliens[a].get_xposition() == j)) {
-					aliens->draw();
+				if ((aliens_[a].get_yposition() == i) && (aliens_[a].get_xposition() == j)) {
+					aliens_->Draw();
 					is_drawn = true;
 					is_alien_drawn = true;
 				}
@@ -78,9 +97,9 @@ void gamesource::drawGame(int width, int height)
 			std::cout << '\n';
 			for (int j = 0; j < width; j++) {
 				bool is_barriers_drawn = false;
-				for (int b = 0; b < barriers.size(); b++) {
-					if (barriers[b].get_xposition() == j) {
-						barriers[b].draw();
+				for (int b = 0; b < barriers_.size(); b++) {
+					if (barriers_[b].get_xposition() == j) {
+						barriers_[b].Draw();
 						is_drawn = true;
 						is_barriers_drawn = true;
 					}
@@ -96,11 +115,11 @@ void gamesource::drawGame(int width, int height)
 		if (i == (height - 2)) {
 			std::cout << '\n';
 			for (int j = 0; j < width; j++) {
-				if (player.get_xposition() > j) {
+				if (player_.get_xposition() > j) {
 					std::cout << " ";
 				}
-				else if (player.get_xposition() == j) {
-					player.draw();
+				else if (player_.get_xposition() == j) {
+					player_.Draw();
 					is_drawn = true;
 				}
 			}
@@ -111,33 +130,33 @@ void gamesource::drawGame(int width, int height)
 		else if (i == (height - 1)) {
 			std::cout << '\n';
 			for (int j = 0; j < width; j++) {
-				gameGround.draw();
+				ground_.Draw();
 				is_drawn = true;
 			}
 			if (!is_drawn) {
 				std::cout << '\n';
 			}
 		}
-	}
-
+	}*/
+#pragma endregion
 }
-void gamesource::set_enemy_positions()
+void GameSource::SetEnemyPositions()
 {
 	for (int i = 0; i < 20; i++) {
-		aliens[i].set_position(i * 3, 1);
+		aliens_[i].SetPosition(i * 3, 1);
 	}
 }
-void gamesource::update_enemy_positions()
+void GameSource::UpdateEnemyPositions()
 {
 }
 ;
 
-void gamesource::gameLoop()
+void GameSource::GameLoop()
 {
 	while (true)
 	{
-		processInput();
-		updateGame();
-		drawGame(gameWindow.get_width(), gameWindow.get_height());
+		ProcessInput();
+		UpdateGame();
+		DrawGame(game_window_.GetWidth(), game_window_.GetHeight());
 	}
 }

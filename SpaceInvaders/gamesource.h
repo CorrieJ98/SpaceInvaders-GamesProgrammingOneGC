@@ -3,6 +3,7 @@
 #include <string>
 #include <array>
 #include <vector>
+#include "screenbuffer.h"
 #include "gamewindow.h"
 #include "gameground.h"
 #include "gameobject.h"
@@ -11,33 +12,47 @@
 #include "barrier.h"
 #include "missile.h"
 
-class gamesource
+class GameSource
 {
 public:
-	gamesource(){};
+	GameSource(){};
 
-	void initaliseGame();
+	void InitialiseGame();
+	void SetGameState(int state);
 
-	void processInput();
-	void gameLoop();
-	void updateGame();
-	void drawGame(int width, int height);
+	void ProcessInput();
+	void GameLoop();
+	void UpdateGame();
 
-	void set_enemy_positions();
-	void update_enemy_positions();
+	void CreateScreenBuffers(int width, int height);
+	void DrawGame(int width, int height);
 
-	void set_barrier_positions();
-	void update_barrier_positions();
+	void SetEnemyPositions();
+	void UpdateEnemyPositions();
 
-	void set_player_position();
-	void update_player_position();
+	void SetBarrierPositions();
+	void UpdateBarrierPositions();
+
+	void SetPlayerPosition();
+	void UpdatePlayerPosition();
 
 private:
-	bool m_runLoop = true;
-	gamewindow gameWindow;
-	gameground gameGround;
-	player player;
-	vector<barrier> barriers;
-	enemy aliens[20];
+	bool run_loop_ = true;
+	GameWindow game_window_;
+
+	ScreenBuffer front_buffer_;
+	ScreenBuffer rear_buffer_;
+
+	Player player_;
+	Ground ground_;
+	std::vector<Barrier> barriers_;
+	Enemy aliens_[20];
 	
+	enum GameState {
+		kStartScreen,
+		kLevel1,
+		kExit
+	};
+
+	GameState game_state_;
 };

@@ -2,18 +2,18 @@
 #include <iostream>
 #include "gameobject.h"
 
-class missile : public gameobject
+class Missile : public GameObject
 {
 public:
-	missile();
+	Missile();
 
-	void draw() override;
-	void move();
-	void hit_target();
+	void Draw() override;
+	void Move();
+	void HitTarget();
 
-	~missile();
+	~Missile();
 	
 private:
-	int m_speed = 5;
+	int speed_ = 5;
 };
 

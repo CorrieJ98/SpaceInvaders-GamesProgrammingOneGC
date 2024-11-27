@@ -1,29 +1,29 @@
 #include "gameobject.h"
 
-void gameobject::set_position(int x, int y)
+void GameObject::SetPosition(int x, int y)
 {
-	this->m_xpos = x;
-	this->m_ypos = y;
+	this->xpos_ = x;
+	this->ypos_ = y;
 }
-void gameobject::set_xposition(int x)
+void GameObject::SetXPos(int x)
 {
-	this->m_xpos = x;
+	this->xpos_ = x;
 }
-void gameobject::set_yposition(int y)
+void GameObject::SetYPos(int y)
 {
-	this->m_ypos = y;
-}
-
-int gameobject::get_xposition() {
-	return this->m_xpos;
+	this->ypos_ = y;
 }
 
-int gameobject::get_yposition()
-{
-	return this->m_ypos;
+int GameObject::GetXPos() {
+	return this->xpos_;
 }
 
-void gameobject::set_active(bool state)
+int GameObject::GetYPos()
 {
-	this->m_state = state;
+	return this->ypos_;
+}
+
+void GameObject::SetActive(bool state)
+{
+	this->state_ = state;
 }

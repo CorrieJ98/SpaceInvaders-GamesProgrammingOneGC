@@ -2,20 +2,16 @@
 #include <iostream>
 #include <windows.h>
 
-using namespace std;
-
-class gamewindow
+class GameWindow
 {
 public:	
-	gamewindow() {};
+	GameWindow() {};
 
-	void set_window(int width, int height);
-
-	int get_width() { return this->m_width; }
-
-	int get_height() { return this->m_height; }
+	void SetWindow(int width, int height);
+	int GetWidth() { return this->width_; }
+	int GetHeight() { return this->height_; }
 
 private:
-	int m_width, m_height;	
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	int width_, height_;	
+	HANDLE hConsole_ = GetStdHandle(STD_OUTPUT_HANDLE);
 };

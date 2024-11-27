@@ -1,26 +1,26 @@
 #include "enemy.h"
 
-enemy::enemy()
+Enemy::Enemy()
 {
 }
 
-void enemy::update()
+void Enemy::Update()
 {
 }
 
-void enemy::draw()
+void Enemy::Draw()
 {
 	std::cout << 'M';
 }
 
-void enemy::shoot()
+void Enemy::Shoot()
 {
 }
 
-void enemy::die()
+void Enemy::Die()
 {
 }
 
-enemy::~enemy()
+Enemy::~Enemy()
 {
 }

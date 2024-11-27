@@ -1,23 +1,23 @@
 #include "missile.h"
 
-missile::missile()
+Missile::Missile()
 {
 }
 
-void missile::draw()
+void Missile::Draw()
 {
 	std::cout << '|';
 }
 
-void missile::move()
+void Missile::Move()
 {
-	this->m_ypos += m_speed;
+	this->ypos_ += speed_;
 }
 
-void missile::hit_target()
+void Missile::HitTarget()
 {
 }
 
-missile::~missile()
+Missile::~Missile()
 {
 }

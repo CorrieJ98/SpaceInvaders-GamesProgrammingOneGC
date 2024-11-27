@@ -2,10 +2,10 @@
 #include <iostream>
 #include <string>
 
-class gameground
+class Ground
 {
 public:
-	gameground(){};
+	Ground(){};
 
-	void draw();
+	void Draw();
 };

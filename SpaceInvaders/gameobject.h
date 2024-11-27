@@ -3,23 +3,23 @@
 #include <string>
 #include <Windows.h>
 
-class gameobject
+class GameObject
 {
 public:
 	
-	virtual void update() { std::cout << "called update() from gameobject class" << '\n'; };
-	virtual void draw() { std::cout << "called draw() from gameobject class" << '\n'; };
+	virtual void Update() { std::cout << "called update() from gameobject class" << '\n'; };
+	virtual void Draw() { std::cout << "called draw() from gameobject class" << '\n'; };
 
-	virtual void set_active(bool state);
-	virtual void set_position(int x, int y);
-	virtual void set_xposition(int x);
-	virtual void set_yposition(int y);
-	virtual int get_xposition();
-	virtual int get_yposition();
+	virtual void SetActive(bool state);
+	virtual void SetPosition(int x, int y);
+	virtual void SetXPos(int x);
+	virtual void SetYPos(int y);
+	virtual int GetXPos();
+	virtual int GetYPos();
 
 
 protected:
-	int m_xpos, m_ypos;
-	bool m_state = false;
+	int xpos_, ypos_;
+	bool state_ = false;
 };
 

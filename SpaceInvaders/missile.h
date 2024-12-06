@@ -1,19 +1,22 @@
 #pragma once
-#include <iostream>
-#include "gameobject.h"
+#include "GameObject.h"
+#include "Player.h"
 
 class Missile : public GameObject
 {
 public:
-	Missile();
+	Missile(): active_(false) {}
+	void FireMissile(Player &p);
+	void Update();
+	void SetActive(bool state) { this->active_ = state; }
+	bool GetState() { return this->active_; }
 
-	void Draw() override;
-	void Move();
-	void HitTarget();
 
-	~Missile();
-	
+	// trying to dig through code to find this was
+	// a nightmare so its here now
+	static const char missile_char_ = '|';
+
 private:
-	int speed_ = 5;
+	bool active_;
 };
 

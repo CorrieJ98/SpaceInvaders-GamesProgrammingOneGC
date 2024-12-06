@@ -139,29 +139,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="enemy.cpp" />
-    <ClCompile Include="barrier.cpp" />
-    <ClCompile Include="gameobject.cpp" />
-    <ClCompile Include="gamesource.cpp" />
-    <ClCompile Include="gameground.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="missile.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="gamewindow.cpp" />
+    <ClCompile Include="Alien.cpp" />
+    <ClCompile Include="Barrier.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameSource.cpp" />
+    <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="enemy.h" />
-    <ClInclude Include="barrier.h" />
-    <ClInclude Include="gameobject.h" />
-    <ClInclude Include="gamesource.h" />
-    <ClInclude Include="gameground.h" />
-    <ClInclude Include="missile.h" />
-    <ClInclude Include="player.h" />
-    <ClInclude Include="gamewindow.h" />
-    <ClInclude Include="screenbuffer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Notes.txt" />
+    <ClInclude Include="Alien.h" />
+    <ClInclude Include="Barrier.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameSource.h" />
+    <ClInclude Include="Ground.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="Missile.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="ScreenBuffer.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

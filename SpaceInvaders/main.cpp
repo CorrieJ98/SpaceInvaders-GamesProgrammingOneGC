@@ -1,9 +1,9 @@
-#include "gamesource.h"
+#include "GameSource.h"
 
 int main()
 {
 	GameSource game;
-	game.InitialiseGame();
+	game.InitaliseGame();
 	game.GameLoop();
 	return 0;
 }

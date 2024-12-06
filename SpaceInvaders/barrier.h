@@ -1,18 +1,29 @@
 #pragma once
-#include <iostream>
-#include "gameobject.h"
+#include "GameObject.h"
 
 class Barrier : public GameObject
 {
 public:
-	Barrier();
-	void InitialiseBarrier();
-	void TakeDamage(const int& dmg);
-	void Draw() override;
 
-	~Barrier();
+	Barrier() : active_(true) {};
+	
+	Barrier(const Barrier& other) 
+		: active_(other.active_){};
+	
+	~Barrier() {};
+
+	void SetPosition(int x, int y);
+	int GetXPos();
+	int GetYPos();
+
+	void SetState(bool in) { active_ = in; };
+	bool GetState() { return active_; }
+	void TakeDamage(int damage);
+	
 
 private:
+	static int x_;
 	int health_ = 2;
+	bool active_;
 };
 

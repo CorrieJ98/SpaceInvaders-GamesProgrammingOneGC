@@ -13,66 +13,81 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\SpaceInvaders">
+      <UniqueIdentifier>{4a7c431b-8415-4b0c-b7a4-b8a0d8e70c02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Pong">
+      <UniqueIdentifier>{e29a4019-af6e-4f56-900b-8f280c124474}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Pong">
+      <UniqueIdentifier>{268f4692-1a29-4eb0-9e30-22c0737a71bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SpaceInvaders">
+      <UniqueIdentifier>{a54f4c91-1da0-4497-b66a-e4b7583bac67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gameobject.cpp">
+    <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gamesource.cpp">
+    <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="enemy.cpp">
+    <ClCompile Include="Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="barrier.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Source Files\SpaceInvaders</Filter>
     </ClCompile>
-    <ClCompile Include="gameground.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Alien.cpp">
+      <Filter>Source Files\SpaceInvaders</Filter>
     </ClCompile>
-    <ClCompile Include="missile.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Barrier.cpp">
+      <Filter>Source Files\SpaceInvaders</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Source Files\SpaceInvaders</Filter>
     </ClCompile>
-    <ClCompile Include="gamewindow.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files\SpaceInvaders</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSource.cpp">
+      <Filter>Source Files\SpaceInvaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="enemy.h">
+    <ClInclude Include="ScreenBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="barrier.h">
+    <ClInclude Include="Alien.h">
+      <Filter>Header Files\SpaceInvaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Barrier.h">
+      <Filter>Header Files\SpaceInvaders</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSource.h">
+      <Filter>Header Files\SpaceInvaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Header Files\SpaceInvaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>Header Files\SpaceInvaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\SpaceInvaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gameobject.h">
+    <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gamesource.h">
+    <ClInclude Include="GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gameground.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="missile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gamewindow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="screenbuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Notes.txt" />
   </ItemGroup>
 </Project>

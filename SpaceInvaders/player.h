@@ -1,16 +1,11 @@
 #pragma once
-#include "gameobject.h"
+#include "GameObject.h"
 
-class Player : public GameObject
+class Player: public GameObject
 {
 public:
-	Player() {};
-	~Player() {};
+	Player(): GameObject(10) {}; //member initilasion in derived class
 
 	void Update() override;
-	void Draw() override;
-
-	void Shoot();
-	void Move();
-
 };
+

@@ -1,23 +1,29 @@
-#include "missile.h"
+#include "Missile.h"
 
-Missile::Missile()
+void Missile::FireMissile(Player& p)
 {
+	if (!active_)
+	{
+		if (GetKeyState(32) & 0x8000)
+		{
+			xpos_ = p.GetXPos();
+			ypos_ = p.GetYPos() - 1;
+			active_ = true;
+		}
+	}
 }
 
-void Missile::Draw()
+void Missile::Update()
 {
-	std::cout << '|';
-}
-
-void Missile::Move()
-{
-	this->ypos_ += speed_;
-}
-
-void Missile::HitTarget()
-{
-}
-
-Missile::~Missile()
-{
+	if (active_)
+	{
+		if (this->ypos_ > 0)
+		{
+			--ypos_;
+		}
+		else
+		{
+			active_ = false;
+		}
+	}
 }

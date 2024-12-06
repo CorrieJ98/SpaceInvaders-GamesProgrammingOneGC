@@ -1,28 +1,27 @@
-#include "barrier.h"
+#include "Barrier.h"
+int Barrier::x_; // extra copy?
 
-Barrier::Barrier()
+void Barrier::SetPosition(int x, int y)
 {
+	this->xpos_ = x;
+	this->ypos_ = y;
 }
 
-void Barrier::InitialiseBarrier()
+int Barrier::GetXPos()
 {
+	return this->xpos_;
 }
 
-void Barrier::TakeDamage(const int& dmg)
+int Barrier::GetYPos()
 {
-	this->health_ -= dmg;
+	return this->ypos_;
+}
 
-	if (health_ <= 0) {
-		this->~Barrier();
+void Barrier::TakeDamage(int damage)
+{
+	--health_;
+
+	if (health_ < 1) {
+		SetActive(false);
 	}
-}
-
-void Barrier::Draw()
-{
-	// could also do {} [] for differing levels of HP on the barriers. This works for now.
-	this->health_ <= 1 ? std::cout << 'x' : std::cout << 'X';
-}
-
-Barrier::~Barrier()
-{	
 }

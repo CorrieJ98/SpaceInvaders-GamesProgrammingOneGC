@@ -1,58 +1,68 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include "Window.h"
+#include "Ground.h"
+#include "Player.h"
+#include "Alien.h"
+#include "Barrier.h"
+#include "Menu.h"
+#include "Missile.h"
+#include "ScreenBuffer.h"
 #include <array>
 #include <vector>
-#include "screenbuffer.h"
-#include "gamewindow.h"
-#include "gameground.h"
-#include "gameobject.h"
-#include "player.h"
-#include "enemy.h"
-#include "barrier.h"
-#include "missile.h"
+
+#define GROUND 29
+#define PLAYER 28
+#define BARRIER 22
+#define SPEED 20
+#define ALIEN 20
 
 class GameSource
 {
 public:
-	GameSource(){};
-
-	void InitialiseGame();
-	void SetGameState(int state);
-
-	void ProcessInput();
-	void GameLoop();
-	void UpdateGame();
-
-	void CreateScreenBuffers(int width, int height);
-	void DrawGame(int width, int height);
-
-	void SetEnemyPositions();
-	void UpdateEnemyPositions();
-
-	void SetBarrierPositions();
-	void UpdateBarrierPositions();
+	GameSource();
+	~GameSource();
 
 	void SetPlayerPosition();
-	void UpdatePlayerPosition();
+	void SetAlienPositions();
+	void SetBarrierPositions();
+	void CreateBuffers(int width, int height);
+	void InitaliseGame();
+	void ProcessInput();
+	void SwapBuffers();
+	void UpdateGame();
+	void SetGameState(int x);
+	void SetGamePositions(int width, int height);
+	void CheckCollision(int width, int height);
+	void DrawGame(int width, int height);
+	void GameLoop();
+
+	
 
 private:
 	bool run_loop_ = true;
-	GameWindow game_window_;
+	Window gamewindow_;
+	Ground ground_;
 
+	std::unique_ptr<Menu> menu_ = std::make_unique<Menu>(); //smart pointers
+	
+	Player* player_;
+	Missile missile_;
+
+	std::vector<Barrier> vbarriers_;
+	//Barrier barriers_[BARRIER];
+	Alien aliens_[ALIEN];
 	ScreenBuffer front_buffer_;
 	ScreenBuffer rear_buffer_;
 
-	Player player_;
-	Ground ground_;
-	std::vector<Barrier> barriers_;
-	Enemy aliens_[20];
-	
-	enum GameState {
+	enum GameState
+	{
 		kStartScreen,
-		kLevel1,
-		kExit
+		kExit,
+		kSpaceInvaders,
+		kPong
 	};
 
-	GameState game_state_;
+	GameState gs_;
 };

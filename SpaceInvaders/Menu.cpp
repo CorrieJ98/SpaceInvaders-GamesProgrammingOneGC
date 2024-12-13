@@ -6,6 +6,7 @@ void Menu::Run()
 {
     bool valid = false;
     int choice;
+
     do { //do while
         system("cls"); // clear the screen
         std::cout << "Start Screen:" << std::endl;

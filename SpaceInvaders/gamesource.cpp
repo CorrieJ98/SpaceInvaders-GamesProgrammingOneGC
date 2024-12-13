@@ -1,23 +1,23 @@
-#include "GameSource.h"
+#include "SI_GameSource.h"
 
 int Alien::speed_ = 2; // define static variable
 
 extern int menuChoice; 
 
-GameSource::GameSource(): player_(new Player()), vbarriers_(20) {} // heap allocatoin (explain new and pointer)
+SI_GameSource::SI_GameSource(): player_(new Player()), barriers_() {} // heap allocatoin (explain new and pointer)
 
-GameSource::~GameSource()
+SI_GameSource::~SI_GameSource()
 {
 	delete player_;
 }
 
-void GameSource::SetPlayerPosition()
+void SI_GameSource::SetPlayerPosition()
 {
 	player_->SetXPos(15);
 	player_->SetYPos(PLAYER);
 }
 
-void GameSource::SetAlienPositions()
+void SI_GameSource::SetAlienPositions()
 {
 	for (int i = 0; i < 20; i++)
 	{
@@ -25,7 +25,7 @@ void GameSource::SetAlienPositions()
 	}
 }
 
-void GameSource::SetBarrierPositions()
+void SI_GameSource::SetBarrierPositions()
 {
 	/*for (int i = 0; i < 20; i++)
 	{	
@@ -33,36 +33,36 @@ void GameSource::SetBarrierPositions()
 		barriers_.emplace_back(Barrier());
 	}*/
 
-	for (int i = 0; i < sizeof vbarriers_ / sizeof vbarriers_[0]; ++i) {
-		
+	for (int i = 0; i < sizeof barriers_ / sizeof barriers_[0]; ++i) {
+		barriers_[i] = Barrier();
 	}
 
 	for (int i = 0; i < 5; i++)
 	{
-		vbarriers_[i].SetPosition(i+10, BARRIER);
+		barriers_[i].SetPosition(i+10, BARRIER);
 	}
 	for (int i = 5; i < 10; i++)
 	{
-		vbarriers_[i].SetPosition(i+25, BARRIER);
+		barriers_[i].SetPosition(i+25, BARRIER);
 	}
 	for (int i = 10; i < 15; i++)
 	{
-		vbarriers_[i].SetPosition(i+40, BARRIER);
+		barriers_[i].SetPosition(i+40, BARRIER);
 	}
 	for (int i = 15; i < 20; i++)
 	{
-		vbarriers_[i].SetPosition(i+55, BARRIER);
+		barriers_[i].SetPosition(i+55, BARRIER);
 	}
 }
 
-void GameSource::CreateBuffers(int width, int height)
+void SI_GameSource::CreateBuffers(int width, int height)
 {
 	// create the front buffer
 	front_buffer_ = ScreenBuffer(width, height);
 }
 
 
-void GameSource::InitaliseGame()
+void SI_GameSource::InitaliseGame()
 {
 	gamewindow_.SetWindow(40, 30);	
 	CreateBuffers(80,30);
@@ -73,14 +73,14 @@ void GameSource::InitaliseGame()
 	gs_ = kStartScreen; // set starting gameState
 }
 
-void GameSource::ProcessInput()
+void SI_GameSource::ProcessInput()
 {
 	player_->Update();
 	missile_.FireMissile(*player_);
 }
 
 // TODO speed updates
-void GameSource::UpdateGame()
+void SI_GameSource::UpdateGame()
 {
 	int x;
 
@@ -100,12 +100,12 @@ void GameSource::UpdateGame()
 	//	m_aliens[0].setSpeed(1);
 }
 
-void GameSource::SetGameState(int x)
+void SI_GameSource::SetGameState(int x)
 {
 	gs_ = static_cast<GameState>(x); //casting lecture
 }
 
-void GameSource::SetGamePositions(int width, int height)  //potentially save and read from textfile?
+void SI_GameSource::SetGamePositions(int width, int height)  //potentially save and read from textfile?
 { //Break here to show copies (Dynamic vs Static array)
 	for (int i = 0; i < height; i++)
 	{	
@@ -124,13 +124,13 @@ void GameSource::SetGamePositions(int width, int height)  //potentially save and
 		{
 			for (int j = 0; j < width; j++)
 			{
-				for (unsigned int bNo = 0; bNo < vbarriers_.size(); bNo++) // unsigned explain
+				for (unsigned int bNo = 0; bNo < (sizeof barriers_ / sizeof barriers_[0]); bNo++) // unsigned explain
 				{
-					if (vbarriers_[bNo].GetXPos() == j)
+					if (barriers_[bNo].GetXPos() == j)
 					{
-						if (vbarriers_[bNo].GetState())
+						if (barriers_[bNo].GetState())
 						{
-							front_buffer_.SetChar(vbarriers_[bNo].GetXPos(), BARRIER, '=');
+							front_buffer_.SetChar(barriers_[bNo].GetXPos(), BARRIER, '=');
 						}
 					}
 				}
@@ -162,15 +162,15 @@ void GameSource::SetGamePositions(int width, int height)  //potentially save and
 	}
 }
 
-void GameSource::CheckCollision(int width, int height)
+void SI_GameSource::CheckCollision(int width, int height)
 {
 	// missile vs barrier collision
-	for (int i = 0; i < sizeof vbarriers_ / sizeof vbarriers_[0]; i++) {
-		if (vbarriers_[i].GetXPos() == missile_.GetXPos() 
-		&& vbarriers_[i].GetYPos() == missile_.GetXPos()) {
+	for (int i = 0; i < sizeof barriers_ / sizeof barriers_[0]; i++) {
+		if (barriers_[i].GetXPos() == missile_.GetXPos() 
+		&& barriers_[i].GetYPos() == missile_.GetXPos()) {
 
 
-			vbarriers_[i].SetActive(false);
+			barriers_[i].SetActive(false);
 			//barriers_[i].TakeDamage(1);
 		}
 	}
@@ -186,7 +186,7 @@ void GameSource::CheckCollision(int width, int height)
 	}
 }
 
-void GameSource::DrawGame(int width, int height)
+void SI_GameSource::DrawGame(int width, int height)
 {
 	for (int i = 0; i < height; i++)
 	{
@@ -198,7 +198,7 @@ void GameSource::DrawGame(int width, int height)
 	}
 }
 
-void GameSource::GameLoop()
+void SI_GameSource::GameLoop()
 {
 	while (gs_ != GameState::kExit)
 	{

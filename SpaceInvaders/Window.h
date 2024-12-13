@@ -11,7 +11,6 @@ public:
 	void SetCursorPosition(int x, int y);
 
 	int GetWidth() { return this->width_; }
-
 	int GetHeight() { return this->height_; }
 
 private:

@@ -18,11 +18,11 @@
 #define SPEED 20
 #define ALIEN 20
 
-class GameSource
+class SI_GameSource
 {
 public:
-	GameSource();
-	~GameSource();
+	SI_GameSource();
+	~SI_GameSource();
 
 	void SetPlayerPosition();
 	void SetAlienPositions();
@@ -50,8 +50,8 @@ private:
 	Player* player_;
 	Missile missile_;
 
-	std::vector<Barrier> vbarriers_;
-	//Barrier barriers_[BARRIER];
+	//std::vector<Barrier> vbarriers_;
+	Barrier barriers_[BARRIER];
 	Alien aliens_[ALIEN];
 	ScreenBuffer front_buffer_;
 	ScreenBuffer rear_buffer_;

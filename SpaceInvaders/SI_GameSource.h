@@ -55,6 +55,7 @@ private:
 	Alien aliens_[ALIEN];
 	ScreenBuffer front_buffer_;
 	ScreenBuffer rear_buffer_;
+	ScreenBuffer reset_buffer_;
 
 	enum GameState
 	{

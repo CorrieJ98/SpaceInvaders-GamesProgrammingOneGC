@@ -4,10 +4,10 @@
 class Alien : GameObject
 {
 public:
-	Alien():active_(true) {}; //no warning 
+	Alien():active_(true) {};
 	~Alien() {};
 
-	Alien(const Alien& other);//copy constructor & const (lecture) 
+	Alien(const Alien& other);
 
 	void SetPosition(int x, int y);
 	void SetSpeed(int x);

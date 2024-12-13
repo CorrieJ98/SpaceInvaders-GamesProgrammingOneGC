@@ -16,7 +16,7 @@ public:
 	int GetXPos();
 	int GetYPos();
 
-	void SetState(bool in) { active_ = in; };
+	void SetState(bool state) { active_ = state; };
 	bool GetState() { return active_; }
 	void TakeDamage(int damage);
 	

@@ -34,8 +34,8 @@ void Window::SetWindow(int width, int height) {
 	GetCurrentConsoleFontEx(hcsb, FALSE, &cfi);
 
 	// Modify the font size in cfi
-	cfi.dwFontSize.X *= 2;
-	cfi.dwFontSize.Y *= 2;
+	cfi.dwFontSize.X *= 1.5;
+	cfi.dwFontSize.Y *= 1.5;
 
 	// Use cfi to set the screen buffer's new font
 	SetCurrentConsoleFontEx(hcsb, FALSE, &cfi);

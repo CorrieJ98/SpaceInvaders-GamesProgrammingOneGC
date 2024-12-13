@@ -14,7 +14,7 @@ public:
 
 	// trying to dig through code to find this was
 	// a nightmare so its here now
-	static const char missile_char_ = '|';
+	static const char kMissileChar_ = '|';
 
 private:
 	bool active_;

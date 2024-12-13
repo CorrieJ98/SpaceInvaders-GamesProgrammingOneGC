@@ -153,14 +153,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alien.h" />
-    <ClInclude Include="Ball.h" />
     <ClInclude Include="Barrier.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="SI_GameSource.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Missile.h" />
-    <ClInclude Include="Paddle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ScreenBuffer.h" />
     <ClInclude Include="Window.h" />

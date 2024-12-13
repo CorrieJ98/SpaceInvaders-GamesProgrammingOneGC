@@ -22,13 +22,13 @@
     <Filter Include="SpaceInvaders\include">
       <UniqueIdentifier>{4a7c431b-8415-4b0c-b7a4-b8a0d8e70c02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pong">
+    <Filter Include="Frogger">
       <UniqueIdentifier>{de7d296f-9059-4661-b401-d35983d287b9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pong\src">
+    <Filter Include="Frogger\src">
       <UniqueIdentifier>{50096900-7487-4913-91b1-bdb8ecba9982}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pong\include">
+    <Filter Include="Frogger\include">
       <UniqueIdentifier>{c4ca6be2-8e36-4a7a-bc05-95a5bb48b3e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -94,12 +94,6 @@
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Paddle.h">
-      <Filter>Pong\include</Filter>
-    </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>Pong\include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

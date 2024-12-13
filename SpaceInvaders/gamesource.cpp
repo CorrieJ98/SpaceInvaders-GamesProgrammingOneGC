@@ -2,7 +2,7 @@
 
 int Alien::speed_ = 2; // define static variable
 
-extern int menuChoice; 
+extern int menu_choice; 
 
 SI_GameSource::SI_GameSource(): player_(new Player()), barriers_() {} // heap allocatoin (explain new and pointer)
 
@@ -59,6 +59,17 @@ void SI_GameSource::CreateBuffers(int width, int height)
 {
 	// create the front buffer
 	front_buffer_ = ScreenBuffer(width, height);
+	// create the back buffer
+	rear_buffer_ = ScreenBuffer(width, height);
+	// create the reset buffer
+	reset_buffer_ = ScreenBuffer(width, height);
+
+	for (int i = 0; i < width; i++)
+		for (int j = 0; j < height; j++)
+			reset_buffer_.SetChar(i, j, ' ');
+
+	front_buffer_ = reset_buffer_;
+	rear_buffer_ = reset_buffer_;
 }
 
 
@@ -77,6 +88,15 @@ void SI_GameSource::ProcessInput()
 {
 	player_->Update();
 	missile_.FireMissile(*player_);
+}
+
+/*
+fatal exception thrown here. std::swap is the culprit. Check memory footprint of all buffers, ensure none of them overflow
+*/
+void SI_GameSource::SwapBuffers()
+{
+	std::swap(front_buffer_, rear_buffer_);  // Move assignment
+	rear_buffer_ = reset_buffer_;   // Move assignment
 }
 
 // TODO speed updates
@@ -156,8 +176,7 @@ void SI_GameSource::SetGamePositions(int width, int height)  //potentially save 
 
 	if (missile_.GetState())
 	{
-		
-		front_buffer_.SetChar(missile_.GetXPos(), missile_.GetYPos(), missile_.missile_char_);
+		front_buffer_.SetChar(missile_.GetXPos(), missile_.GetYPos(), missile_.kMissileChar_);
 		missile_.Update();
 	}
 }
@@ -170,8 +189,8 @@ void SI_GameSource::CheckCollision(int width, int height)
 		&& barriers_[i].GetYPos() == missile_.GetXPos()) {
 
 
-			barriers_[i].SetActive(false);
-			//barriers_[i].TakeDamage(1);
+			//barriers_[i].SetActive(false);
+			barriers_[i].TakeDamage(1);
 		}
 	}
 
@@ -185,15 +204,16 @@ void SI_GameSource::CheckCollision(int width, int height)
 		}
 	}
 }
-
 void SI_GameSource::DrawGame(int width, int height)
 {
 	for (int i = 0; i < height; i++)
 	{
-		for (int j = 0; j < width; j++) 
+		for (int j = 0; j < width; j++)
 		{
-			gamewindow_.SetCursorPosition(j,i);
-			std::cout << front_buffer_.GetChar(j,i);
+			gamewindow_.SetCursorPosition(j, i);
+			std::cout << front_buffer_.GetChar(j, i);
+
+			// fatal exception here, read access violation. Check GameSource line 94
 		}
 	}
 }
@@ -206,12 +226,14 @@ void SI_GameSource::GameLoop()
 		{
 		case kStartScreen:
 			menu_->Run();
-			this->SetGameState(menuChoice);
+			this->SetGameState(menu_choice);
 			break;
 		case kSpaceInvaders:
 			this->ProcessInput();
 			this->UpdateGame();
 			this->SetGamePositions(gamewindow_.GetWidth(), gamewindow_.GetHeight());
+			//this->CheckCollision(gamewindow_.GetWidth(), gamewindow_.GetHeight());
+			this->SwapBuffers();
 			this->DrawGame(gamewindow_.GetWidth(), gamewindow_.GetHeight());
 			break;
 		}

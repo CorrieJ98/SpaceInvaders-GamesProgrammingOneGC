@@ -1,6 +1,6 @@
 #include "Menu.h"
 
-extern int menuChoice = 0; //extern example to share data with menu and gameSource
+extern int menu_choice = 0; //extern example to share data with menu and gameSource
 
 void Menu::Run() 
 {
@@ -12,19 +12,19 @@ void Menu::Run()
         std::cout << "Start Screen:" << std::endl;
         std::cout << "1. Quit" << std::endl;
         std::cout << "2. Play Space Invaders" << std::endl;
-        std::cout << "3. Play Pong" << std::endl;
+        std::cout << "3. Play Frogger" << std::endl;
         std::cout << "Enter your choice: ";
         std::cin >> choice;
 
         switch (choice) {
         
         case 1:
-            menuChoice = 1;
+            menu_choice = 1;
             valid = true;
             system("cls"); // clear the screen
             break;
         case 2:
-            menuChoice = 2;
+            menu_choice = 2;
             valid = true;
             system("cls"); // clear the screen
             break;

@@ -5,23 +5,23 @@ Alien::Alien(const Alien& other)
 	std::cout << " A copy of alien has been made" << '\n';
 }
 
-void Alien::SetPosition(int x, int y)
+void Alien::setPostion(int x, int y)
 {
-	xpos_ = x;
-	ypos_ = y;
+	xPos = x;
+	yPos = y;
 }
 
-void Alien::SetActive(bool state) 
+void Alien::setActive(bool state) 
 {
-	this->active_ = state;
+	this->m_isActive = state;
 }
 
-void Alien::Draw()
+void Alien::draw()
 {
 	std::cout << "X";
 }
 
-void Alien::SetSpeed(int x)
+void Alien::setSpeed(int x)
 {
-	this->speed_ = x;
+	this->m_speed = x;
 }

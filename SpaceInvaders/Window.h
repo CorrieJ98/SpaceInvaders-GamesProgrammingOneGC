@@ -2,18 +2,21 @@
 #include <iostream>
 #include <windows.h>
 
+using namespace std;
+
 class Window
 {
 public:	
 	Window() {};
 
-	void SetWindow(int width, int height);
-	void SetCursorPosition(int x, int y);
+	void setWindow(int width, int height);
+	void setCursorPosition(int x, int y);
 
-	int GetWidth() { return this->width_; }
-	int GetHeight() { return this->height_; }
+	int getWidth() { return this->width; }
+
+	int getHeight() { return this->height; }
 
 private:
-	int width_, height_;	
-	HANDLE hConsole_ = GetStdHandle(STD_OUTPUT_HANDLE);
+	int width, height;	
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 };

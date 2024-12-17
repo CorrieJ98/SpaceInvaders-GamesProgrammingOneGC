@@ -24,7 +24,6 @@
     <ProjectGuid>{c4957a1a-cb4f-4906-b212-e8f6d8141652}</ProjectGuid>
     <RootNamespace>SpaceInvaders</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>GP1_CLI_Games</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -155,7 +154,7 @@
     <ClInclude Include="Alien.h" />
     <ClInclude Include="Barrier.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="SI_GameSource.h" />
+    <ClInclude Include="GameSource.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Missile.h" />

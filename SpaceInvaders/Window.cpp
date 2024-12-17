@@ -1,19 +1,19 @@
 #include "Window.h"
 
-void Window::SetWindow(int width, int height) {
+void Window::setWindow(int width, int height) {
 
-	this->width_ = width;
-	this->height_ = height;
+	this->width = width;
+	this->height = height;
 
 	SMALL_RECT windowSize = { 10, 10, width+20, height+20};
-	if (!SetConsoleWindowInfo(hConsole_, TRUE, &windowSize))
+	if (!SetConsoleWindowInfo(hConsole, TRUE, &windowSize))
 	{
-		std::cout << "SetConsoleWindowInfo failed with error " << GetLastError() << std::endl;
+		cout << "SetConsoleWindowInfo failed with error " << GetLastError() << endl;
 	}
 
 	if (!SetConsoleTitle(L"Space Invaders")) // cover sting types (termination)
 	{
-		std::cout << "SetConsoleTitle failed with error " << GetLastError() << std::endl;
+		cout << "SetConsoleTitle failed with error " << GetLastError() << endl;
 	}
 	
 #pragma region hideCursor
@@ -34,15 +34,15 @@ void Window::SetWindow(int width, int height) {
 	GetCurrentConsoleFontEx(hcsb, FALSE, &cfi);
 
 	// Modify the font size in cfi
-	cfi.dwFontSize.X *= 1.5;
-	cfi.dwFontSize.Y *= 1.5;
+	cfi.dwFontSize.X *= 2;
+	cfi.dwFontSize.Y *= 2;
 
 	// Use cfi to set the screen buffer's new font
 	SetCurrentConsoleFontEx(hcsb, FALSE, &cfi);
 #pragma endregion
 }
 
-void Window::SetCursorPosition(int x, int y)
+void Window::setCursorPosition(int x, int y)
 {
 	static const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	std::cout.flush();

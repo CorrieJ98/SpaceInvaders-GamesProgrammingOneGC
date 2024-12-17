@@ -6,5 +6,5 @@ struct Ground //explain struct vs class
 {
 	Ground(){};
 
-	void Draw();
+	void draw();
 };

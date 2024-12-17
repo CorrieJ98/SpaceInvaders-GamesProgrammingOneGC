@@ -1,10 +1,10 @@
-#include "SI_GameSource.h"
+#include "GameSource.h"
 
 int main()
 {
-	SI_GameSource game;
-	game.InitaliseGame();
-	game.GameLoop();
+	GameSource game;
+	game.initaliseGame();
+	game.gameLoop();
 	return 0;
 }
 

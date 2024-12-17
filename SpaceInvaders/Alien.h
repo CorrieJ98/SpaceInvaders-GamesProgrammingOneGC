@@ -1,26 +1,27 @@
 #pragma once
 #include "GameObject.h"
 
-class Alien : GameObject
+class Alien:GameObject //inheritance
 {
 public:
-	Alien():active_(true) {};
+	Alien():m_isActive(true) {}; //no warning 
 	~Alien() {};
 
-	Alien(const Alien& other);
+	Alien(const Alien& other);//copy constructor & const (lecture) 
 
-	void SetPosition(int x, int y);
-	void SetSpeed(int x);
+	void setPostion(int x, int y);
+	void setSpeed(int x);
 
-	void Draw() override;
-	void SetActive(bool state);
+	void draw() override; //explain use of word and if needed
+	void setActive(bool state);
 
-	int GetXPos() { return this->xpos_; };
-	int GetYPos() { return this->ypos_; };
+	int getXP() { return this->xPos; };
+	int getYP() { return this->yPos; };
 
+	
 
 private:
-	bool active_;
-	static int speed_;
+	bool m_isActive;
+	static int m_speed;
 };
 

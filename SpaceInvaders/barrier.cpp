@@ -1,18 +1,18 @@
 #include "Barrier.h"
-int Barrier::x; // extra copy?
+int Barrier::m_x; // extra copy?
 
-void Barrier::setPostion(int x, int y)
+void Barrier::SetPos(int m_x, int y)
 {
-	this->xPos = x;
-	this->yPos = y;
+	this->m_xpos = m_x;
+	this->m_ypos = y;
 }
 
-int Barrier::getXPostion()
+int Barrier::GetXPos()
 {
-	return this->xPos;
+	return this->m_xpos;
 }
 
-int Barrier::getYPostion()
+int Barrier::GetYPos()
 {
-	return this->yPos;
+	return this->m_ypos;
 }

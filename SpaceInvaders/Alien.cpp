@@ -5,23 +5,62 @@ Alien::Alien(const Alien& other)
 	std::cout << " A copy of alien has been made" << '\n';
 }
 
-void Alien::setPostion(int x, int y)
+void Alien::SetPos(int x, int y)
 {
-	xPos = x;
-	yPos = y;
+	m_xpos = x;
+	m_ypos = y;
 }
 
-void Alien::setActive(bool state) 
+void Alien::SetState(bool state) 
 {
-	this->m_isActive = state;
+	this->m_state = state;
 }
 
-void Alien::draw()
+void Alien::Draw()
 {
 	std::cout << "X";
 }
 
-void Alien::setSpeed(int x)
+void Alien::Update()
 {
-	this->m_speed = x;
+	if (m_state) {
+		if (this->m_kGroupWidth + this->m_xpos >= 80) {
+			MoveDown();
+			m_is_moving_right = !m_is_moving_right;
+		}
+
+		if (this->m_xpos - this->m_kGroupWidth <= 1) {
+			MoveDown();
+			m_is_moving_right = !m_is_moving_right;
+		}
+
+		if (m_is_moving_right)
+		{
+			MoveRight();
+		}
+		else {
+			m_is_moving_right == false;
+			MoveLeft();
+		}
+	}
+}
+
+void Alien::MoveLeft()
+{
+	this->SetPos(--m_xpos, m_ypos);
+}
+
+void Alien::MoveRight()
+{
+	this->SetPos(++m_xpos, m_ypos);
+}
+
+void Alien::MoveDown()
+{
+	this->SetPos(m_xpos, ++m_ypos);
+}
+
+void Alien::SetSpeed(int speed)
+{
+	this->m_group_speed = speed;
 }

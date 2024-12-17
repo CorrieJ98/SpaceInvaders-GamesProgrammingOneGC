@@ -4,24 +4,30 @@
 class Alien:GameObject //inheritance
 {
 public:
-	Alien():m_isActive(true) {}; //no warning 
+	Alien():m_state(true) {}; //no warning 
 	~Alien() {};
 
 	Alien(const Alien& other);//copy constructor & const (lecture) 
 
-	void setPostion(int x, int y);
-	void setSpeed(int x);
+	void SetPos(int x, int y);
+	void SetSpeed(int speed);
+	void SetState(bool state);
 
-	void draw() override; //explain use of word and if needed
-	void setActive(bool state);
+	void Draw() override;
+	void Update() override;
 
-	int getXP() { return this->xPos; };
-	int getYP() { return this->yPos; };
+	int GetXPos() { return this->m_xpos; };
+	int GetYPos() { return this->m_ypos; };
 
-	
+	void MoveLeft();
+	void MoveRight();
+	void MoveDown();
 
 private:
-	bool m_isActive;
-	static int m_speed;
+	bool m_state;
+	bool m_is_moving_right = true;
+	static int m_group_speed;
+	static const int m_kGroupWidth = 60;
+	static int m_group_ywidth;
 };
 

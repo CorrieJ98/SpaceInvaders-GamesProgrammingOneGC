@@ -2,17 +2,18 @@
 
 extern int menuChoice = 0; //extern example to share data with menu and gameSource
 
-void Menu::run() 
+void Menu::Run() 
 {
     bool valid = false;
     int choice;
     do { //do while
         system("cls"); // clear the screen
-        cout << "Start Screen:" << endl;
-        cout << "1. PLayer Space Invaders" << endl;
-        cout << "2. Quit" << endl;
-        cout << "Enter your choice: ";
-        cin >> choice;
+        std::cout << "Start Screen:" << '\n';
+        std::cout << "1. Quit" << '\n';
+        std::cout << "2. Play Space Invaders" << '\n';
+        std::cout << "3. Play Frogger" << '\n';
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
 
         switch (choice) {
         case 1:
@@ -25,13 +26,18 @@ void Menu::run()
             valid = true;
             system("cls"); // clear the screen
             break;
+        case 3:
+            menuChoice = 3;
+            valid = false;
+            system("cls"); // clear the screen
+            break;
         default:
-            cout << "Invalid choice. Please try again." << endl;
+            std::cout << "Invalid choice. Please try again." << '\n';
             break;
         }
 
         if (!valid) {
-            cout << "Press any key to continue..." << endl;
+            std::cout << "Press any key to continue..." << '\n';
             _getch(); // wait for user to press any key
         }
     } while (!valid);

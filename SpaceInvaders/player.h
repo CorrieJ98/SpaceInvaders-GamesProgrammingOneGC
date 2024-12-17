@@ -4,8 +4,8 @@
 class Player: public GameObject
 {
 public:
-	Player(): GameObject(10) {}; //member initilasion in derived class
+	Player(): GameObject(10) {}; //member init from derived class
 
-	void update() override;
+	void Update() override;
 };
 

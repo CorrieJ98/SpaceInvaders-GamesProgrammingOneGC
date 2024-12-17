@@ -3,8 +3,8 @@
 int main()
 {
 	GameSource game;
-	game.initaliseGame();
-	game.gameLoop();
+	game.InitGame();
+	game.GameLoop();
 	return 0;
 }
 

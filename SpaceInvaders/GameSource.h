@@ -14,8 +14,11 @@
 
 #define GROUND 29
 #define PLAYER 28
-#define BARRIER 22
+#define BARRIER_Y 22
+#define BARRIERS 20
 #define SPEED 20
+#define ALIEN_Y 1
+#define ALIEN 20
 
 class GameSource
 {
@@ -23,44 +26,45 @@ public:
 	GameSource();
 	~GameSource();
 
-	void setPlayerPoisiton();
-	void setAlienPositions();
-	void setBarrierPositions();
-	void createBuffers(int width, int height);
-	void initaliseGame();
-	void processInput();
-	void swapBuffers();
-	void updateGame();
-	void setGameState(int x);
-	void setGamePositions(int width, int height);
-	void checkCollision(int width, int height);
-	void drawGame(int width, int height);
-	void gameLoop();
+	void SetPlayerPos();
+	void SetAlienPos();
+	void SetBarrierPos();
+	void CreateBuffers(int width, int height);
+	void InitGame();
+	void ProcessInput();
+	void SwapBuffers();
+	void UpdateGame();
+	void SetGameState(int state);
+	void SetGamePositions(int width, int height);
+	void CheckCollision(int width, int height);
+	void DrawGame(int width, int height);
+	void GameLoop();
 
 	
 
 private:
-	bool m_runLoop = true;
-	Window m_gameWindow; // explain m_ convention
-	Ground m_gameGround;
+	bool m_run_loop = true;
+	Window m_game_window; // explain m_ convention
+	Ground m_game_ground;
 
 	std::unique_ptr<Menu> m_menu = std::make_unique<Menu>(); //smart pointers
 	
 	Player* m_player; // raw pointer lecture
-	Missile m_missle;
-
-	Alien m_aliens[20];
+	Missile m_missile;
+	std::array<Barrier, BARRIERS> m_barriers;
+	std::array<Alien, ALIEN> m_aliens;
 	ScreenBuffer m_frontBuffer;
 	ScreenBuffer m_backBuffer;
 	ScreenBuffer m_resetBuffer;
-	std::vector<Barrier> m_barriers;
+	std::vector<Barrier> m_vbarriers;
 
 	enum gameState 
 	{
 		STARTSCREEN,
-		LEVEL1,
-		EXIT
+		EXIT,
+		SPACE_INVADERS,
+		FROGGER
 	};
 
-	gameState gS;
+	gameState m_gamestate;
 };

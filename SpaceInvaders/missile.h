@@ -5,13 +5,13 @@
 class Missile : public GameObject
 {
 public:
-	Missile(): isActive(false) {}
-	void fireMissle(Player &p);
-	void update();
-	void setActive(bool state) { this->isActive = state; }
-	bool getState() { return this->isActive; }
+	Missile(): m_state(false) {}
+	void FireMissile(Player &p);
+	void Update();
+	void SetState(bool state) { this->m_state = state; }
+	bool GetState() { return this->m_state; }
 		
 private:
-	bool isActive;
+	bool m_state;
 };
 

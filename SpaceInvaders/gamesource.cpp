@@ -1,214 +1,217 @@
 #include "GameSource.h"
 
-int Alien::m_speed; // define static variable
+int Alien::m_group_speed; // define static variable
 
 extern int menuChoice; 
 
-GameSource::GameSource(): m_player(new Player()), m_barriers(20) {} // heap allocatoin (explain new and pointer)
+GameSource::GameSource(): m_player(new Player()), m_vbarriers(20) {} // heap allocatoin (explain new and pointer)
 
 GameSource::~GameSource()
 {
 	delete m_player;
 }; // ";" is not needed but is will not break the code
 
-void GameSource::setPlayerPoisiton()
+void GameSource::SetPlayerPos()
 {
-	m_player->setXPos(15);
-	m_player->setYPos(PLAYER);
+	m_player->SetXPos(15);
+	m_player->SetYPos(PLAYER);
 }
 
-void GameSource::setAlienPositions()
+void GameSource::SetAlienPos() 
 {
 	for (int i = 0; i < 20; i++)
 	{
-		m_aliens[i].setPostion(i*3, 1);
+		m_aliens[i].SetPos(i*3, 1);
 	}
 }
 
-void GameSource::setBarrierPositions()
+// todo change from std::vector to array
+void GameSource::SetBarrierPos()
 {
-	for (int i = 0; i < 20; i++)
+	//m_barriers.fill(Barrier());
+	for (int i = 0; i < BARRIERS; i++)
 	{
-		m_barriers.emplace_back(Barrier());
+		m_vbarriers.emplace_back(Barrier());
 	}
 
 	for (int i = 0; i < 5; i++)
 	{
-		m_barriers[i].setPostion(i+10, BARRIER);
+		m_vbarriers[i].SetPos(i+10, BARRIER_Y);  // (i + 10, BARRIER_Y)
 	}
 	for (int i = 5; i < 10; i++)
 	{
-		m_barriers[i].setPostion(i+25, BARRIER);
+		m_vbarriers[i].SetPos(i+25, BARRIER_Y); // (i+25, BARRIER_Y)
 	}
 	for (int i = 10; i < 15; i++)
 	{
-		m_barriers[i].setPostion(i+40, BARRIER);
+		m_vbarriers[i].SetPos(i+40, BARRIER_Y);	  //(i+40, BARRIER_Y)
 	}
 	for (int i = 15; i < 20; i++)
 	{
-		m_barriers[i].setPostion(i+55, BARRIER);
+		m_vbarriers[i].SetPos(i+55, BARRIER_Y);	//(i+55, BARRIER_Y)
 	}
 }
 
-void GameSource::createBuffers(int width, int height)
+void GameSource::CreateBuffers(int m_width, int m_height)
 {
 	// create the front buffer
-	m_frontBuffer = ScreenBuffer(width, height);
+	m_frontBuffer = ScreenBuffer(m_width, m_height);
 	// create the back buffer
-	m_backBuffer = ScreenBuffer(width, height);
+	m_backBuffer = ScreenBuffer(m_width, m_height);
 	// create the reset buffer
-	m_resetBuffer = ScreenBuffer(width, height);
+	m_resetBuffer = ScreenBuffer(m_width, m_height);
 
-	for (int i = 0; i < width; i++)
-		for (int j = 0; j < height; j++)
+	for (int i = 0; i < m_width; i++)
+		for (int j = 0; j < m_height; j++)
 			m_resetBuffer.setChar(i,j,' ');
 
 	m_frontBuffer = m_resetBuffer;
 	m_backBuffer = m_resetBuffer;
 }
 
-void GameSource::swapBuffers()
+void GameSource::SwapBuffers()
 {
 	std::swap(m_frontBuffer, m_backBuffer);  // Move assignment
 	m_backBuffer = m_resetBuffer;   // Move assignment
 }
 
 
-void GameSource::initaliseGame()
+void GameSource::InitGame()
 {
-	m_gameWindow.setWindow(80, 30);
-	setPlayerPoisiton();
-	setAlienPositions();
-	setBarrierPositions();
-	createBuffers(80,30);
-	gS = STARTSCREEN; // set starting gameState
+	m_game_window.SetWindow(80, 30, 1.5f);
+	SetPlayerPos();
+	SetAlienPos();
+	SetBarrierPos();
+	CreateBuffers(80,30);
+	m_gamestate = STARTSCREEN; // set starting gameState
 }
 
-void GameSource::processInput()
+void GameSource::ProcessInput()
 {
-	m_player->update();
-	m_missle.fireMissle(*m_player);
+	m_player->Update();
+	m_missile.FireMissile(*m_player);
 }
 
-void GameSource::updateGame()
+void GameSource::UpdateGame()
 {
-	int x;
+#pragma region Alien Movement
+	int speed;
+	speed = m_aliens[0].GetYPos() > SPEED ? 2 : 1;
 
-	x = m_aliens[0].getYP() > SPEED ? 2 : 1; //Ternary Operator - Same as below
+	for (int i = 0; i < sizeof m_aliens / sizeof m_aliens[0]; i++) {
+		m_aliens[i].SetSpeed(speed);
+		m_aliens[i].Update();
+	}
+#pragma endregion
+
 	
-	for (int i = 0; i < sizeof(m_aliens) / sizeof(m_aliens[0]); i++) // explain sizeof
-		m_aliens[i].setSpeed(x); // why is this terrible? (fix for CW?)
-
-	//if (m_aliens[0].getYP() > SPEED)
-	//{
-	//	m_aliens[0].setSpeed(2);
-	//}
-	//else
-	//	m_aliens[0].setSpeed(1);
 }
 
-void GameSource::setGameState(int x)
+void GameSource::SetGameState(int state)
 {
-	gS = static_cast<gameState>(x); //casting lecture
+	m_gamestate = static_cast<gameState>(state); //casting lecture
 }
 
-void GameSource::setGamePositions(int width, int height)  //potentially save and read from textfile?
+void GameSource::SetGamePositions(int m_width, int m_height)  //potentially save and read from textfile?
 { //Break here to show copies (Dynamic vs Static array)
-	for (int i = 0; i < height; i++)
+	for (int i = 0; i < m_height; i++)
 	{	
-		for (int j = 0; j < width; j++) // draw aliens
+		for (int j = 0; j < m_width; j++) // Draw aliens
 		{
 			for (int aNo = 0; aNo < 20; aNo++) //3rd for loop, can this be improved? 2D array
 			{
-				if ((m_aliens[aNo].getYP() == i) && (m_aliens[aNo].getXP() == j))
+				if ((m_aliens[aNo].GetYPos() == i) && (m_aliens[aNo].GetXPos() == j))
 				{
-						m_backBuffer.setChar(m_aliens[aNo].getXP(),m_aliens[aNo].getYP(),'X');
+						m_backBuffer.setChar(m_aliens[aNo].GetXPos(),m_aliens[aNo].GetYPos(),'X');
 				}
 			}
 		}
 
-		if (i == (BARRIER)) //draw barriers (explain the macro (openGL))
+		if (i == (BARRIER_Y))
 		{
-			for (int j = 0; j < width; j++)
+			for (int j = 0; j < m_width; j++)
 			{
-				for (unsigned int bNo = 0; bNo < m_barriers.size(); bNo++) // unsigned explain
+				for (unsigned int bNo = 0; bNo < m_vbarriers.size(); bNo++)
 				{
-					if (m_barriers[bNo].getXPostion() == j)
+					if (m_vbarriers[bNo].GetXPos() == j)
 					{
-						if (m_barriers[bNo].getState())
+						if (m_vbarriers[bNo].GetState())
 						{
-							m_backBuffer.setChar(m_barriers[bNo].getXPostion(), BARRIER, '=');
+							m_backBuffer.setChar(m_vbarriers[bNo].GetXPos(), BARRIER_Y, '=');
 						}
 					}
 				}
 			}
 		}
 
-		if (i == (PLAYER)) //draw player
+		if (i == (PLAYER)) //Draw player
 		{
-			for (int j = 0; j < width; j++)
-				if (m_player->getXPos() == j)
+			for (int j = 0; j < m_width; j++)
+				if (m_player->GetXPos() == j)
 				{
-					m_backBuffer.setChar(m_player->getXPos(), PLAYER, '^');
+					m_backBuffer.setChar(m_player->GetXPos(), PLAYER, '^');
 				}
 		}
 
 
-		else if (i == (GROUND))	//draw ground
+		else if (i == (GROUND))	//Draw ground
 		{
-			for (int j = 0; j < width; j++)
+			for (int j = 0; j < m_width; j++)
 				m_backBuffer.setChar(j, GROUND, '-');
 		}
 	}
 
-	if (m_missle.getState())
+	if (m_missile.GetState())
 	{
-		m_backBuffer.setChar(m_missle.getXPos(), m_missle.getYPos(), '!');
-		m_missle.update();
+		m_backBuffer.setChar(m_missile.GetXPos(), m_missile.GetYPos(), '!');
+		m_missile.Update();
 	}
 }
 
-void GameSource::checkCollision(int width, int height)
+void GameSource::CheckCollision(int m_width, int m_height)
 {
-	for (Barrier& element : m_barriers)
+	for (Barrier& element : m_vbarriers)
 	{
-		if (element.getXPostion() == m_missle.getXPos() && element.getYPostion() == m_missle.getYPos())
+		if (element.GetXPos() == m_missile.GetXPos() && element.GetYPos() == m_missile.GetYPos())
 		{
-				element.setState(false); //this bad naming
-				m_missle.setActive(false);
+				element.SetState(false); //this bad naming
+				m_missile.SetState(false);
 		}
 	}
 }
 
-void GameSource::drawGame(int width, int height)
+void GameSource::DrawGame(int m_width, int m_height)
 {
-	for (int i = 0; i < height; i++)
+	for (int i = 0; i < m_height; i++)
 	{
-		for (int j = 0; j < width; j++) 
+		for (int j = 0; j < m_width; j++) 
 		{
-			m_gameWindow.setCursorPosition(j,i);
+			m_game_window.setCursorPosition(j,i);
 			std::cout << m_frontBuffer.getChar(j,i);
 		}
 	}
 }
 
-void GameSource::gameLoop()
+void GameSource::GameLoop()
 {
-	while (gS != gameState::EXIT)
+	while (m_gamestate != gameState::EXIT)
 	{
-		switch (gS)
+		switch (m_gamestate)
 		{
 		case STARTSCREEN:
-			m_menu->run();
-			this->setGameState(menuChoice);
+			m_menu->Run();
+			this->SetGameState(menuChoice);
 			break;
-		case LEVEL1:
-			this->processInput();
-			this->updateGame();
-			this->setGamePositions(m_gameWindow.getWidth(), m_gameWindow.getHeight());
-			this->checkCollision(m_gameWindow.getWidth(), m_gameWindow.getHeight());
-			this->swapBuffers();
-			this->drawGame(m_gameWindow.getWidth(), m_gameWindow.getHeight());
+		case SPACE_INVADERS:
+			this->ProcessInput();
+			this->UpdateGame();
+			this->SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight());
+			this->CheckCollision(m_game_window.GetWidth(), m_game_window.GetHeight());
+			this->SwapBuffers();
+			this->DrawGame(m_game_window.GetWidth(), m_game_window.GetHeight());
+			break;
+		case FROGGER:
+			// TODO Add This
 			break;
 		}
 	}

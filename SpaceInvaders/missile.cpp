@@ -1,29 +1,29 @@
 #include "Missile.h"
 
-void Missile::fireMissle(Player& p)
+void Missile::FireMissile(Player& p)
 {
-	if (!isActive)
+	if (!m_state)
 	{
 		if (GetKeyState(32) & 0x8000)
 		{
-			xPos = p.getXPos();
-			yPos = p.getYPos() - 1;
-			isActive = true;
+			m_xpos = p.GetXPos();
+			m_ypos = p.GetYPos() - 1;
+			m_state = true;
 		}
 	}
 }
 
-void Missile::update()
+void Missile::Update()
 {
-	if (isActive)
+	if (m_state)
 	{
-		if (this->yPos > 0)
+		if (this->m_ypos > 0)
 		{
-			yPos--;
+			m_ypos--;
 		}
 		else
 		{
-			isActive = false;
+			m_state = false;
 		}
 	}
 }

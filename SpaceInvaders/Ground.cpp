@@ -1,6 +1,6 @@
 #include "Ground.h"
 
-void Ground::draw()
+void Ground::Draw()
 {
 	std::cout << "_";
 };

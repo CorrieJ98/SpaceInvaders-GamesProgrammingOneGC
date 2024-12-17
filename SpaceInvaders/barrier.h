@@ -5,22 +5,21 @@ class Barrier : public GameObject
 {
 public:
 
-	Barrier() : isActive(true) {};
+	Barrier() : m_state(true) {};
 	
-	Barrier(const Barrier& other) 
-		: isActive(other.isActive){};
+	Barrier(const Barrier& b) : m_state(b.m_state){};	// wtf is this for?
 	
 	~Barrier() {};
 
-	void setPostion(int x, int y);
-	int getXPostion();
-	int getYPostion();
+	void SetPos(int x, int y);
+	int GetXPos();
+	int GetYPos();
 
-	void setState(bool in) { isActive = in; };
-	bool getState() { return isActive; }
+	void SetState(bool in) { m_state = in; };
+	bool GetState() { return m_state; }
 
 private:
-	static int x;
-	bool isActive;
+	static int m_x;
+	bool m_state;
 };
 

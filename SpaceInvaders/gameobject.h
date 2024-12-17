@@ -8,18 +8,18 @@ class GameObject
 public:
 
 	GameObject() {}; // explain warning and how to fix it (something they should do for CW)
-	GameObject(int x): xPos(x), yPos(0) {}; // overloading to initalise from the derived class
+	GameObject(int m_x): m_xpos(m_x), m_ypos(0) {}; // overloading to initalise from the derived class
 	~GameObject() {}; //destuctor
 
-	virtual void update() {};
-	virtual void draw() { std::cout << "called from based" << '\n'; };
+	virtual void Update() {};
+	virtual void Draw() { std::cout << "called from based" << '\n'; };
 
-	int getXPos() { return this->xPos; };
-	int getYPos() { return this->yPos; };
-#
-	void setXPos(int x) { this->xPos = x; };
-	void setYPos(int y) { this->yPos = y; };
+	int GetXPos() { return this->m_xpos; };
+	int GetYPos() { return this->m_ypos; };
 
-protected: //explain protected access
-	int xPos, yPos;
+	void SetXPos(int m_x) { this->m_xpos = m_x; };
+	void SetYPos(int y) { this->m_ypos = y; };
+
+protected:
+	int m_xpos, m_ypos;
 };

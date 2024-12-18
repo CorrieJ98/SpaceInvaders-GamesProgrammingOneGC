@@ -160,6 +160,7 @@
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ScreenBuffer.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

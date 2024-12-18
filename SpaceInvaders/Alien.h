@@ -4,10 +4,10 @@
 class Alien:GameObject //inheritance
 {
 public:
-	Alien():m_state(true) {}; //no warning 
+	Alien() : m_state(true) {};
 	~Alien() {};
 
-	Alien(const Alien& other);//copy constructor & const (lecture) 
+	Alien(const Alien& other);
 
 	void SetPos(int x, int y);
 	void SetSpeed(int speed);
@@ -19,15 +19,18 @@ public:
 	int GetXPos() { return this->m_xpos; };
 	int GetYPos() { return this->m_ypos; };
 
-	void MoveLeft();
-	void MoveRight();
+	void MoveX();
 	void MoveDown();
+	void MoveStutter(float delay);
+	void ResetPos();
 
 private:
 	bool m_state;
 	bool m_is_moving_right = true;
+	bool m_can_move = true;
 	static int m_group_speed;
 	static const int m_kGroupWidth = 60;
-	static int m_group_ywidth;
+	static const int m_kMoveStutter = 1;	// 1 sec stutter to begin with
+	static int m_group_height;
 };
 

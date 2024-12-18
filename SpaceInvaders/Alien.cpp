@@ -22,43 +22,57 @@ void Alien::Draw()
 }
 
 void Alien::Update()
-{
+{	
+#pragma region Alien Movement
 	if (m_state) {
-		if (this->m_kGroupWidth + this->m_xpos >= 80) {
-			MoveDown();
-			m_is_moving_right = !m_is_moving_right;
-		}
 
-		if (this->m_xpos - this->m_kGroupWidth <= 1) {
-			MoveDown();
-			m_is_moving_right = !m_is_moving_right;
-		}
+		MoveStutter((float)m_kMoveStutter);
 
-		if (m_is_moving_right)
-		{
-			MoveRight();
-		}
-		else {
-			m_is_moving_right == false;
-			MoveLeft();
+		if(m_can_move){
+			MoveX();
+			if (this->m_xpos > 78 || this->m_xpos < 1) {
+				MoveDown();
+			}
 		}
 	}
+#pragma endregion
 }
 
-void Alien::MoveLeft()
+void Alien::MoveX()
 {
-	this->SetPos(--m_xpos, m_ypos);
-}
-
-void Alien::MoveRight()
-{
-	this->SetPos(++m_xpos, m_ypos);
+	if (m_is_moving_right) {
+		this->SetPos(++m_xpos, m_ypos);
+	}
+	else {
+		this->SetPos(--m_xpos, m_ypos);
+	}
 }
 
 void Alien::MoveDown()
 {
 	this->SetPos(m_xpos, ++m_ypos);
+	m_is_moving_right = !m_is_moving_right;
 }
+
+void Alien::MoveStutter(float delay)
+{
+	m_can_move = false;
+
+	// delays the movement, but massively costly. find another way to do this...
+
+	for (int i = 0; i < 1000; ++i) {
+		for(int j = 0; j < 1000; j++){
+			m_can_move = true;
+		}
+	}
+}
+
+void Alien::ResetPos()
+{
+	// TODO This
+	this->SetPos(1, 1);
+}
+
 
 void Alien::SetSpeed(int speed)
 {

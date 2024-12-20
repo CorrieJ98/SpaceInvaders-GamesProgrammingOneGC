@@ -11,7 +11,9 @@ public:
 
 	void SetPos(int x, int y);
 	void SetSpeed(int speed);
-	void SetState(bool state);
+
+	void SetState(bool in) { m_state = in; };
+	bool GetState() { return m_state; }
 
 	void Draw() override;
 	void Update() override;

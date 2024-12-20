@@ -16,3 +16,17 @@ int Barrier::GetYPos()
 {
 	return this->m_ypos;
 }
+
+void Barrier::TakeDamage(uint8_t dmg)
+{
+	this->m_health -= dmg;
+	std::cout << m_health << '\n';
+
+	if (this->m_health < 2) {
+		this->SetBarrierChar('x');
+	}
+
+	if (this->m_health < 1) {
+		this->SetState(false);
+	}
+}

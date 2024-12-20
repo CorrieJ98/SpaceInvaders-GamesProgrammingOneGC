@@ -137,7 +137,7 @@ void GameSource::SetGamePositions(int m_width, int m_height)  //potentially save
 					{
 						if (m_vbarriers[bNo].GetState())
 						{
-							m_backBuffer.setChar(m_vbarriers[bNo].GetXPos(), BARRIER_Y, '=');
+							m_backBuffer.setChar(m_vbarriers[bNo].GetXPos(), BARRIER_Y, m_vbarriers[bNo].GetBarrierChar());
 						}
 					}
 				}
@@ -170,14 +170,35 @@ void GameSource::SetGamePositions(int m_width, int m_height)  //potentially save
 
 void GameSource::CheckCollision(int m_width, int m_height)
 {
-	for (Barrier& element : m_vbarriers)
+#pragma region Barrier
+	for (Barrier& barrier : m_vbarriers)
 	{
-		if (element.GetXPos() == m_missile.GetXPos() && element.GetYPos() == m_missile.GetYPos())
-		{
-				element.SetState(false); //this bad naming
+		if (barrier.GetState()) {
+			if (barrier.GetXPos() == m_missile.GetXPos() && barrier.GetYPos() == m_missile.GetYPos())
+			{
+				//barrier.TakeDamage(m_missile.GetDamage());
+				barrier.SetState(false);
 				m_missile.SetState(false);
+			}
 		}
 	}
+#pragma endregion
+
+#pragma region Alien
+	for (Alien& alien : m_aliens)
+	{
+		if (alien.GetState()) {
+			if (alien.GetXPos() == m_missile.GetXPos() && alien.GetYPos() == m_missile.GetYPos())
+			{
+				alien.SetPos(-10, -10);
+				m_missile.SetXPos(-10);
+				alien.SetState(false);
+				m_missile.SetState(false);
+			}
+		}
+	}
+#pragma endregion
+
 }
 
 void GameSource::DrawGame(int m_width, int m_height)
@@ -215,4 +236,11 @@ void GameSource::GameLoop()
 			break;
 		}
 	}
+}
+
+void GameSource::CheckGameCondition()
+{
+	// loop through aliens, check m_ypos if its on the ground
+	// if it is, and any aliens are alive (state == false) player loses
+	// otherwise player has won
 }

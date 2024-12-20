@@ -7,13 +7,8 @@ Alien::Alien(const Alien& other)
 
 void Alien::SetPos(int x, int y)
 {
-	m_xpos = x;
-	m_ypos = y;
-}
-
-void Alien::SetState(bool state) 
-{
-	this->m_state = state;
+	this->m_xpos = x;
+	this->m_ypos = y;
 }
 
 void Alien::Draw()
@@ -26,11 +21,11 @@ void Alien::Update()
 #pragma region Alien Movement
 	if (m_state) {
 
-		MoveStutter((float)m_kMoveStutter);
+		//MoveStutter((float)m_kMoveStutter);
 
 		if(m_can_move){
 			MoveX();
-			if (this->m_xpos > 78 || this->m_xpos < 1) {
+			if (this->m_xpos > 79 || this->m_xpos < 1) {
 				MoveDown();
 			}
 		}
@@ -58,7 +53,8 @@ void Alien::MoveStutter(float delay)
 {
 	m_can_move = false;
 
-	// delays the movement, but massively costly. find another way to do this...
+	// delays the movement, but massively costly on a single thread. 
+	// this slows the game to a crawl...find another way to do this.
 
 	for (int i = 0; i < 1000; ++i) {
 		for(int j = 0; j < 1000; j++){

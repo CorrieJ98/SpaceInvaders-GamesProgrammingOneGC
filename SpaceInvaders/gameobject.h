@@ -8,11 +8,11 @@ class GameObject
 public:
 
 	GameObject() {}; // explain warning and how to fix it (something they should do for CW)
-	GameObject(int m_x): m_xpos(m_x), m_ypos(0) {}; // overloading to initalise from the derived class
+	GameObject(int x): m_xpos(x), m_ypos(0) {}; // overloading to initalise from the derived class
 	~GameObject() {}; //destuctor
 
-	virtual void Update() {};
-	virtual void Draw() { std::cout << "called from based" << '\n'; };
+	virtual void Update() { std::cout << "called Update from base" << '\n'; };
+	virtual void Draw() { std::cout << "called Draw from base" << '\n'; };
 
 	int GetXPos() { return this->m_xpos; };
 	int GetYPos() { return this->m_ypos; };

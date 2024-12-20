@@ -37,6 +37,7 @@ public:
 	void SetGameState(int state);
 	void SetGamePositions(int width, int height);
 	void CheckCollision(int width, int height);
+	void CheckGameCondition();
 	void DrawGame(int width, int height);
 	void GameLoop();
 

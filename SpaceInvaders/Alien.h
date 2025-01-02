@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-class Alien:GameObject //inheritance
+class Alien:GameObject
 {
 public:
 	Alien() : m_state(true) {};
@@ -21,9 +21,9 @@ public:
 	int GetXPos() { return this->m_xpos; };
 	int GetYPos() { return this->m_ypos; };
 
+	void Movement();
 	void MoveX();
 	void MoveDown();
-	void MoveStutter(float delay);
 	void ResetPos();
 
 private:
@@ -32,7 +32,6 @@ private:
 	bool m_can_move = true;
 	static int m_group_speed;
 	static const int m_kGroupWidth = 60;
-	static const int m_kMoveStutter = 1;	// 1 sec stutter to begin with
 	static int m_group_height;
 };
 

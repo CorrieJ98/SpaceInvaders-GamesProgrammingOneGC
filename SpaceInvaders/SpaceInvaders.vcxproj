@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClCompile Include="Alien.cpp" />
     <ClCompile Include="Barrier.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSource.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Main.cpp" />

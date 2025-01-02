@@ -18,19 +18,21 @@ void Alien::Draw()
 
 void Alien::Update()
 {	
-#pragma region Alien Movement
+	Movement();
+}
+
+void Alien::Movement() {
 	if (m_state) {
 
-		//MoveStutter((float)m_kMoveStutter);
+		if (m_can_move) {
 
-		if(m_can_move){
 			MoveX();
+
 			if (this->m_xpos > 79 || this->m_xpos < 1) {
 				MoveDown();
 			}
 		}
 	}
-#pragma endregion
 }
 
 void Alien::MoveX()
@@ -47,20 +49,6 @@ void Alien::MoveDown()
 {
 	this->SetPos(m_xpos, ++m_ypos);
 	m_is_moving_right = !m_is_moving_right;
-}
-
-void Alien::MoveStutter(float delay)
-{
-	m_can_move = false;
-
-	// delays the movement, but massively costly on a single thread. 
-	// this slows the game to a crawl...find another way to do this.
-
-	for (int i = 0; i < 1000; ++i) {
-		for(int j = 0; j < 1000; j++){
-			m_can_move = true;
-		}
-	}
 }
 
 void Alien::ResetPos()

@@ -4,7 +4,7 @@ int Alien::m_group_speed; // define static variable
 
 extern int menuChoice; 
 
-GameSource::GameSource(): m_player(new Player()), m_vbarriers(20) {} // heap allocatoin (explain new and pointer)
+GameSource::GameSource(): m_player(new Player()) {} // heap allocatoin (explain new and pointer)
 
 GameSource::~GameSource()
 {
@@ -28,28 +28,54 @@ void GameSource::SetAlienPos()
 // todo change from std::vector to array
 void GameSource::SetBarrierPos()
 {
-	//m_barriers.fill(Barrier());
+#pragma region Barrier Array
+
 	for (int i = 0; i < BARRIERS; i++)
 	{
-		m_vbarriers.emplace_back(Barrier());
+		m_barriers[i] = Barrier();
 	}
 
 	for (int i = 0; i < 5; i++)
 	{
-		m_vbarriers[i].SetPos(i+10, BARRIER_Y);  // (i + 10, BARRIER_Y)
+		m_barriers[i].SetPos(i + 10, BARRIER_Y);
 	}
 	for (int i = 5; i < 10; i++)
 	{
-		m_vbarriers[i].SetPos(i+25, BARRIER_Y); // (i+25, BARRIER_Y)
+		m_barriers[i].SetPos(i + 25, BARRIER_Y);
 	}
 	for (int i = 10; i < 15; i++)
 	{
-		m_vbarriers[i].SetPos(i+40, BARRIER_Y);	  //(i+40, BARRIER_Y)
+		m_barriers[i].SetPos(i + 40, BARRIER_Y);
 	}
 	for (int i = 15; i < 20; i++)
 	{
-		m_vbarriers[i].SetPos(i+55, BARRIER_Y);	//(i+55, BARRIER_Y)
+		m_barriers[i].SetPos(i + 55, BARRIER_Y);
 	}
+#pragma endregion
+	
+#pragma region Barrier vector obsolete
+	//for (int i = 0; i < BARRIERS; i++)
+	//{
+	//	m_vbarriers.emplace_back(Barrier());
+	//}
+
+	//for (int i = 0; i < 5; i++)
+	//{
+	//	m_vbarriers[i].SetPos(i + 10, BARRIER_Y);
+	//}
+	//for (int i = 5; i < 10; i++)
+	//{
+	//	m_vbarriers[i].SetPos(i + 25, BARRIER_Y);
+	//}
+	//for (int i = 10; i < 15; i++)
+	//{
+	//	m_vbarriers[i].SetPos(i + 40, BARRIER_Y);
+	//}
+	//for (int i = 15; i < 20; i++)
+	//{
+	//	m_vbarriers[i].SetPos(i + 55, BARRIER_Y);
+	//}
+#pragma endregion
 }
 
 void GameSource::CreateBuffers(int m_width, int m_height)
@@ -102,9 +128,8 @@ void GameSource::UpdateGame()
 		m_aliens[i].SetSpeed(speed);
 		m_aliens[i].Update();
 	}
-#pragma endregion
 
-	
+#pragma endregion
 }
 
 void GameSource::SetGameState(int state)
@@ -114,6 +139,8 @@ void GameSource::SetGameState(int state)
 
 void GameSource::SetGamePositions(int m_width, int m_height)  //potentially save and read from textfile?
 { //Break here to show copies (Dynamic vs Static array)
+
+#pragma region Aliens
 	for (int i = 0; i < m_height; i++)
 	{	
 		for (int j = 0; j < m_width; j++) // Draw aliens
@@ -126,8 +153,32 @@ void GameSource::SetGamePositions(int m_width, int m_height)  //potentially save
 				}
 			}
 		}
+#pragma endregion
 
+#pragma region Barriers Array
 		if (i == (BARRIER_Y))
+		{
+			for (int j = 0; j < m_width; j++)
+			{
+				for (int k = 0; k < sizeof m_barriers / sizeof m_barriers[k] ; k++)
+				{
+					if (m_barriers[k].GetXPos() == j)
+					{
+						if (m_barriers[k].GetState())
+						{
+							m_backBuffer.setChar(m_barriers[k].GetXPos(), BARRIER_Y, m_barriers[k].GetBarrierChar());
+						}
+					}
+				}
+			}
+		}
+		
+#pragma endregion
+
+#pragma region Barriers Vector Obsolete
+
+
+		/*	if (i == (BARRIER_Y))
 		{
 			for (int j = 0; j < m_width; j++)
 			{
@@ -142,8 +193,10 @@ void GameSource::SetGamePositions(int m_width, int m_height)  //potentially save
 					}
 				}
 			}
-		}
+		}*/
+#pragma endregion
 
+#pragma region Player
 		if (i == (PLAYER)) //Draw player
 		{
 			for (int j = 0; j < m_width; j++)
@@ -152,26 +205,30 @@ void GameSource::SetGamePositions(int m_width, int m_height)  //potentially save
 					m_backBuffer.setChar(m_player->GetXPos(), PLAYER, '^');
 				}
 		}
+#pragma endregion
 
-
+#pragma region Ground
 		else if (i == (GROUND))	//Draw ground
 		{
 			for (int j = 0; j < m_width; j++)
 				m_backBuffer.setChar(j, GROUND, '-');
 		}
 	}
+#pragma endregion
 
+#pragma region Missile
 	if (m_missile.GetState())
 	{
 		m_backBuffer.setChar(m_missile.GetXPos(), m_missile.GetYPos(), '!');
 		m_missile.Update();
 	}
+#pragma endregion
 }
 
 void GameSource::CheckCollision(int m_width, int m_height)
 {
 #pragma region Barrier
-	for (Barrier& barrier : m_vbarriers)
+	for (Barrier& barrier : m_barriers)
 	{
 		if (barrier.GetState()) {
 			if (barrier.GetXPos() == m_missile.GetXPos() && barrier.GetYPos() == m_missile.GetYPos())
@@ -188,16 +245,20 @@ void GameSource::CheckCollision(int m_width, int m_height)
 	for (Alien& alien : m_aliens)
 	{
 		if (alien.GetState()) {
-			if (alien.GetXPos() == m_missile.GetXPos() && alien.GetYPos() == m_missile.GetYPos())
+			// check one block below for the missile as well as on the aliens coords
+			// this gives the player a little bit of grace with aiming
+			if (alien.GetXPos() == m_missile.GetXPos() && (alien.GetYPos() == m_missile.GetYPos() || alien.GetYPos() == m_missile.GetYPos() + 1))
 			{
-				alien.SetPos(-10, -10);
-				m_missile.SetXPos(-10);
+				alien.SetPos(-10, -10);	// send alien to purgatory
+				m_missile.SetXPos(-10);	// send missile to purgatory
 				alien.SetState(false);
 				m_missile.SetState(false);
 			}
 		}
 	}
 #pragma endregion
+
+CheckGameCondition();
 
 }
 
@@ -234,6 +295,14 @@ void GameSource::GameLoop()
 		case FROGGER:
 			// TODO Add This
 			break;
+		case WIN:
+			system("cls");
+			std::cout << "YOU WIN" << '\n';
+			break;
+		case LOSS:
+			system("cls");
+			std::cout << "YOU LOSE" << '\n';
+			break;
 		}
 	}
 }
@@ -243,4 +312,14 @@ void GameSource::CheckGameCondition()
 	// loop through aliens, check m_ypos if its on the ground
 	// if it is, and any aliens are alive (state == false) player loses
 	// otherwise player has won
+
+	for (int i = 0; i < sizeof m_aliens / sizeof m_aliens[0]; i++) {
+		
+		// if all enemy states are false, player wins
+		
+		if (m_aliens[i].GetYPos() >= PLAYER - 1) {
+			m_gamestate = LOSS;
+		}
+		
+	}
 }

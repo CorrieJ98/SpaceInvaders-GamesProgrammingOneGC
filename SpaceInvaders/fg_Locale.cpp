@@ -1,18 +1,32 @@
 #include "fg_Locale.h"
 
-void Locale::SetInitialLaneDepth()
+void Locale::PopulateLanesArray()
 {
-	for (auto& row : m_lanes) {
-		for (LaneTypes& types : row) {
-			/*
-				set row 0 to LaneType.STARTPAVE
-				set rows 1-4 to LaneType.ROAD
-				set row 5 to LaneType.MIDPAVE
-				set row 6-10 to LaneType.RIVER
-				set row 11 to LaneType.TOPGRASS
-			*/
+	LaneTypes t = STARTPAVE;
 
+	for (int i = 0; i < sizeof m_lanes / sizeof m_lanes[0]; i++) {
 
-		}
-	}
+        m_lanes[i] = t;
+
+        switch (i) {
+        case FG_START_LANES:
+            t = ROAD;
+            break;
+
+        case kOffsetMidPave:
+            t = MIDPAVE;
+            break;
+
+        case kOffsetRiver:
+            t = RIVER;
+            break;
+
+        case kOffsetGrass:
+            t = GRASS;
+            break;
+
+        default:
+            break;
+        }
 }
+

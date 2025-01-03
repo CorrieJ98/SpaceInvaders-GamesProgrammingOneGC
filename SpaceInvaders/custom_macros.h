@@ -13,4 +13,7 @@
 
 #define FG_RIVER_LANES 5
 #define FG_ROAD_LANES 4
+#define FG_START_LANES 1
+#define FG_GRASS_LANES 1
+#define FG_MIDPAVE_LANES 1
 #define FG_HOMES 4

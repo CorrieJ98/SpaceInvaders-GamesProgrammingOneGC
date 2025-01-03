@@ -48,6 +48,7 @@ public:
 	
 private:
 	bool m_run_loop = true;
+	bool m_game_initialised = false;
 	Window m_game_window;
 	Ground m_game_ground;
 

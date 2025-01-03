@@ -105,11 +105,28 @@ void GameSource::SwapBuffers()
 void GameSource::InitGame()
 {
 	m_game_window.SetWindow(80, 30, 1.5f);
-	SetPlayerPos();
-	SetAlienPos();
-	SetBarrierPos();
+	
 	CreateBuffers(80,30);
 	m_gamestate = STARTSCREEN; // set starting gameState
+}
+
+void GameSource::InitSpaceInvaders()
+{
+	if (!m_game_initialised)
+	{
+		SetPlayerPos();
+		SetAlienPos();
+		SetBarrierPos();
+		m_game_initialised = true;
+	}
+}
+
+void GameSource::InitFrogger()
+{
+	if (!m_game_initialised)
+	{
+		m_game_initialised = true;
+	}
 }
 
 void GameSource::ProcessInput(int menu_choice)
@@ -285,6 +302,7 @@ void GameSource::GameLoop()
 			this->SetGameState(menuChoice);
 			break;
 		case SPACE_INVADERS:
+			this->InitSpaceInvaders();
 			this->ProcessInput(menuChoice);
 			this->UpdateGame(menuChoice);
 			this->SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight(), menuChoice);
@@ -293,7 +311,7 @@ void GameSource::GameLoop()
 			this->DrawGame(m_game_window.GetWidth(), m_game_window.GetHeight());
 			break;
 		case FROGGER:
-			// TODO Add This
+			this->InitFrogger();
 			break;
 		case WIN:
 			system("cls");

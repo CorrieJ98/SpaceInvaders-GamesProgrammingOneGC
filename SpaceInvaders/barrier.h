@@ -16,13 +16,13 @@ public:
 	bool GetState() { return m_state; }
 	char GetBarrierChar(){ return m_barrier_char; }
 	void SetBarrierChar(char c) { this->m_barrier_char = c; }
-	void TakeDamage(uint8_t dmg);
+	void TakeDamage(int dmg);
 
 
 private:
 	static int m_x;
 	char m_barrier_char = '=';
-	uint8_t m_health;
+	int m_health;
 	bool m_state;
 };
 

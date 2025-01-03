@@ -14,6 +14,11 @@
 #include "si_Missile.h"
 
 #include "fg_Frog.h"
+#include "fg_Car.h"
+#include "fg_Home.h"
+#include "fg_LilyPad.h"
+#include "fg_Log.h"
+#include "fg_Locale.h"
 
 class GameSource
 {

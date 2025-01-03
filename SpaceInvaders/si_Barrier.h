@@ -4,7 +4,6 @@
 class Barrier : public GameObject
 {
 public:
-
 	Barrier() : m_state(true) {};
 	Barrier(const Barrier& b) : m_state(b.m_state){};	// wtf is this for?
 	~Barrier() {};

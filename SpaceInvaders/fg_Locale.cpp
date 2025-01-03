@@ -4,7 +4,7 @@ void Locale::PopulateLanesArray()
 {
 	LaneTypes t = STARTPAVE;
 
-	for (int i = 0; i < sizeof m_lanes / sizeof m_lanes[0]; i++) {
+    for (int i = 0; i < sizeof m_lanes / sizeof m_lanes[0]; i++) {
 
         m_lanes[i] = t;
 
@@ -28,5 +28,6 @@ void Locale::PopulateLanesArray()
         default:
             break;
         }
+    }
 }
 

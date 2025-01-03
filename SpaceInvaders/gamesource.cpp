@@ -112,13 +112,13 @@ void GameSource::InitGame()
 	m_gamestate = STARTSCREEN; // set starting gameState
 }
 
-void GameSource::ProcessInput()
+void GameSource::ProcessInput(int menu_choice)
 {
 	m_player->Update();
 	m_missile.FireMissile(*m_player);
 }
 
-void GameSource::UpdateGame()
+void GameSource::UpdateGame(int menu_choice)
 {
 #pragma region Alien Movement
 	int speed;
@@ -137,7 +137,7 @@ void GameSource::SetGameState(int state)
 	m_gamestate = static_cast<gameState>(state); //casting lecture
 }
 
-void GameSource::SetGamePositions(int m_width, int m_height)  //potentially save and read from textfile?
+void GameSource::SetGamePositions(int m_width, int m_height, int menu_choice)  //potentially save and read from textfile?
 { //Break here to show copies (Dynamic vs Static array)
 
 #pragma region Aliens
@@ -225,7 +225,7 @@ void GameSource::SetGamePositions(int m_width, int m_height)  //potentially save
 #pragma endregion
 }
 
-void GameSource::CheckCollision(int m_width, int m_height)
+void GameSource::CheckCollision(int m_width, int m_height, int menu_choice)
 {
 #pragma region Barrier
 	for (Barrier& barrier : m_barriers)
@@ -285,10 +285,10 @@ void GameSource::GameLoop()
 			this->SetGameState(menuChoice);
 			break;
 		case SPACE_INVADERS:
-			this->ProcessInput();
-			this->UpdateGame();
-			this->SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight());
-			this->CheckCollision(m_game_window.GetWidth(), m_game_window.GetHeight());
+			this->ProcessInput(menuChoice);
+			this->UpdateGame(menuChoice);
+			this->SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight(), menuChoice);
+			this->CheckCollision(m_game_window.GetWidth(), m_game_window.GetHeight(), menuChoice);
 			this->SwapBuffers();
 			this->DrawGame(m_game_window.GetWidth(), m_game_window.GetHeight());
 			break;

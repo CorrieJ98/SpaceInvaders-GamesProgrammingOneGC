@@ -26,21 +26,25 @@ public:
 	GameSource();
 	~GameSource();
 
+	
+	void CreateBuffers(int width, int height);
+	void SwapBuffers();
+	void GameLoop();
+	void InitGame();
+	void InitSpaceInvaders();
+	void InitFrogger();
+
+	void ProcessInput(int menu_choice);
+	void UpdateGame(int menu_choice);
+	void SetGameState(int state);
+	void SetGamePositions(int width, int height, int menu_choice);
+	void CheckCollision(int width, int height, int menu_choice);
+	void CheckGameCondition();
+	void DrawGame(int width, int height);
+	
 	void SetPlayerPos();
 	void SetAlienPos();
 	void SetBarrierPos();
-	void CreateBuffers(int width, int height);
-	void InitGame();
-	void ProcessInput();
-	void SwapBuffers();
-	void UpdateGame();
-	void SetGameState(int state);
-	void SetGamePositions(int width, int height);
-	void CheckCollision(int width, int height);
-	void CheckGameCondition();
-	void DrawGame(int width, int height);
-	void GameLoop();
-
 	
 private:
 	bool m_run_loop = true;

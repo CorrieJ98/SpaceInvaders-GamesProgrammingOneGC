@@ -1,14 +1,8 @@
 #pragma once
-#include "GameObject.h"
+#include "gameobject.h"
 
-class Alien:GameObject
-{
+class Vehicle abstract : public GameObject {
 public:
-	Alien() : m_state(true) {};
-	~Alien() {};
-
-	Alien(const Alien& other);
-
 	void SetPos(int x, int y);
 	void SetSpeed(int speed);
 
@@ -23,15 +17,10 @@ public:
 
 	void Movement();
 	void MoveX();
-	void MoveDown();
+	void MoveY();
 	void ResetPos();
 
 private:
 	bool m_state;
-	bool m_is_moving_right = true;
-	bool m_can_move = true;
-	static int m_group_speed;
-	static const int m_kGroupWidth = 60;
-	static int m_group_height;
+	int m_speed;
 };
-

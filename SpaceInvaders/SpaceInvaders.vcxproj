@@ -24,6 +24,7 @@
     <ProjectGuid>{c4957a1a-cb4f-4906-b212-e8f6d8141652}</ProjectGuid>
     <RootNamespace>SpaceInvaders</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>CommandLineGaming</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -139,27 +140,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Alien.cpp" />
-    <ClCompile Include="Barrier.cpp" />
+    <ClCompile Include="si_Alien.cpp" />
+    <ClCompile Include="si_Barrier.cpp" />
+    <ClCompile Include="fg_Frog.cpp" />
     <ClCompile Include="GameSource.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Missile.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="si_Missile.cpp" />
+    <ClCompile Include="si_Player.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Alien.h" />
-    <ClInclude Include="Barrier.h" />
+    <ClInclude Include="fg_Vehicle.h" />
+    <ClInclude Include="si_Alien.h" />
+    <ClInclude Include="si_Barrier.h" />
+    <ClInclude Include="fg_Frog.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSource.h" />
-    <ClInclude Include="Ground.h" />
+    <ClInclude Include="si_Ground.h" />
     <ClInclude Include="Menu.h" />
-    <ClInclude Include="Missile.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="si_Missile.h" />
+    <ClInclude Include="si_Player.h" />
     <ClInclude Include="ScreenBuffer.h" />
-    <ClInclude Include="Timer.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -4,24 +4,24 @@ int Alien::m_group_speed; // define static variable
 
 extern int menuChoice; 
 
-GameSource::GameSource(): m_player(new Player()) {} // heap allocatoin (explain new and pointer)
+GameSource::GameSource(): m_si_player(new Player()) {} // heap allocatoin (explain new and pointer)
 
 GameSource::~GameSource()
 {
-	delete m_player;
+	delete m_si_player;
 }; // ";" is not needed but is will not break the code
 
 void GameSource::SI_SetPlayerPos()
 {
-	m_player->SetXPos(15);
-	m_player->SetYPos(SI_PLAYER);
+	m_si_player->SetXPos(15);
+	m_si_player->SetYPos(SI_PLAYER);
 }
 
 void GameSource::SI_SetAlienPos() 
 {
 	for (int i = 0; i < 20; i++)
 	{
-		m_aliens[i].SetPos(i*3, 1);
+		m_si_aliens[i].SetPos(i*3, 1);
 	}
 }
 
@@ -32,24 +32,24 @@ void GameSource::SI_SetBarrierPos()
 
 	for (int i = 0; i < SI_BARRIERS; i++)
 	{
-		m_barriers[i] = Barrier();
+		m_si_barriers[i] = Barrier();
 	}
 
 	for (int i = 0; i < 5; i++)
 	{
-		m_barriers[i].SetPos(i + 10, SI_BARRIER_Y);
+		m_si_barriers[i].SetPos(i + 10, SI_BARRIER_Y);
 	}
 	for (int i = 5; i < 10; i++)
 	{
-		m_barriers[i].SetPos(i + 25, SI_BARRIER_Y);
+		m_si_barriers[i].SetPos(i + 25, SI_BARRIER_Y);
 	}
 	for (int i = 10; i < 15; i++)
 	{
-		m_barriers[i].SetPos(i + 40, SI_BARRIER_Y);
+		m_si_barriers[i].SetPos(i + 40, SI_BARRIER_Y);
 	}
 	for (int i = 15; i < 20; i++)
 	{
-		m_barriers[i].SetPos(i + 55, SI_BARRIER_Y);
+		m_si_barriers[i].SetPos(i + 55, SI_BARRIER_Y);
 	}
 #pragma endregion
 	
@@ -151,19 +151,19 @@ void GameSource::FG_CheckGameCondition()
 
 void GameSource::ProcessInput(int menu_choice)
 {
-	m_player->Update();
-	m_missile.FireMissile(*m_player);
+	m_si_player->Update();
+	m_si_missile.FireMissile(*m_si_player);
 }
 
 void GameSource::UpdateGame(int menu_choice)
 {
 #pragma region Alien Movement
 	int speed;
-	speed = m_aliens[0].GetYPos() > SI_SPEED ? 2 : 1;
+	speed = m_si_aliens[0].GetYPos() > SI_SPEED ? 2 : 1;
 
-	for (int i = 0; i < sizeof m_aliens / sizeof m_aliens[0]; i++) {
-		m_aliens[i].SetSpeed(speed);
-		m_aliens[i].Update();
+	for (int i = 0; i < sizeof m_si_aliens / sizeof m_si_aliens[0]; i++) {
+		m_si_aliens[i].SetSpeed(speed);
+		m_si_aliens[i].Update();
 	}
 
 #pragma endregion
@@ -184,9 +184,9 @@ void GameSource::SetGamePositions(int m_width, int m_height, int menu_choice)  /
 		{
 			for (int aNo = 0; aNo < 20; aNo++) //3rd for loop, can this be improved? 2D array
 			{
-				if ((m_aliens[aNo].GetYPos() == i) && (m_aliens[aNo].GetXPos() == j))
+				if ((m_si_aliens[aNo].GetYPos() == i) && (m_si_aliens[aNo].GetXPos() == j))
 				{
-						m_backBuffer.setChar(m_aliens[aNo].GetXPos(),m_aliens[aNo].GetYPos(),'X');
+						m_backBuffer.setChar(m_si_aliens[aNo].GetXPos(),m_si_aliens[aNo].GetYPos(),'X');
 				}
 			}
 		}
@@ -197,13 +197,13 @@ void GameSource::SetGamePositions(int m_width, int m_height, int menu_choice)  /
 		{
 			for (int j = 0; j < m_width; j++)
 			{
-				for (int k = 0; k < sizeof m_barriers / sizeof m_barriers[k] ; k++)
+				for (int k = 0; k < sizeof m_si_barriers / sizeof m_si_barriers[k] ; k++)
 				{
-					if (m_barriers[k].GetXPos() == j)
+					if (m_si_barriers[k].GetXPos() == j)
 					{
-						if (m_barriers[k].GetState())
+						if (m_si_barriers[k].GetState())
 						{
-							m_backBuffer.setChar(m_barriers[k].GetXPos(), SI_BARRIER_Y, m_barriers[k].GetBarrierChar());
+							m_backBuffer.setChar(m_si_barriers[k].GetXPos(), SI_BARRIER_Y, m_si_barriers[k].GetBarrierChar());
 						}
 					}
 				}
@@ -237,9 +237,9 @@ void GameSource::SetGamePositions(int m_width, int m_height, int menu_choice)  /
 		if (i == (SI_PLAYER)) //Draw player
 		{
 			for (int j = 0; j < m_width; j++)
-				if (m_player->GetXPos() == j)
+				if (m_si_player->GetXPos() == j)
 				{
-					m_backBuffer.setChar(m_player->GetXPos(), SI_PLAYER, '^');
+					m_backBuffer.setChar(m_si_player->GetXPos(), SI_PLAYER, '^');
 				}
 		}
 #pragma endregion
@@ -254,10 +254,10 @@ void GameSource::SetGamePositions(int m_width, int m_height, int menu_choice)  /
 #pragma endregion
 
 #pragma region Missile
-	if (m_missile.GetState())
+	if (m_si_missile.GetState())
 	{
-		m_backBuffer.setChar(m_missile.GetXPos(), m_missile.GetYPos(), '!');
-		m_missile.Update();
+		m_backBuffer.setChar(m_si_missile.GetXPos(), m_si_missile.GetYPos(), '!');
+		m_si_missile.Update();
 	}
 #pragma endregion
 }
@@ -265,31 +265,31 @@ void GameSource::SetGamePositions(int m_width, int m_height, int menu_choice)  /
 void GameSource::CheckCollision(int m_width, int m_height, int menu_choice)
 {
 #pragma region Barrier
-	for (Barrier& barrier : m_barriers)
+	for (Barrier& barrier : m_si_barriers)
 	{
 		if (barrier.GetState()) {
-			if (barrier.GetXPos() == m_missile.GetXPos() && barrier.GetYPos() == m_missile.GetYPos())
+			if (barrier.GetXPos() == m_si_missile.GetXPos() && barrier.GetYPos() == m_si_missile.GetYPos())
 			{
 				//barrier.TakeDamage(m_missile.GetDamage());
 				barrier.SetState(false);
-				m_missile.SetState(false);
+				m_si_missile.SetState(false);
 			}
 		}
 	}
 #pragma endregion
 
 #pragma region Alien
-	for (Alien& alien : m_aliens)
+	for (Alien& alien : m_si_aliens)
 	{
 		if (alien.GetState()) {
 			// check one block below for the missile as well as on the aliens coords
 			// this gives the player a little bit of grace with aiming
-			if (alien.GetXPos() == m_missile.GetXPos() && (alien.GetYPos() == m_missile.GetYPos() || alien.GetYPos() == m_missile.GetYPos() + 1))
+			if (alien.GetXPos() == m_si_missile.GetXPos() && (alien.GetYPos() == m_si_missile.GetYPos() || alien.GetYPos() == m_si_missile.GetYPos() + 1))
 			{
 				alien.SetPos(-10, -10);	// send alien to purgatory
-				m_missile.SetXPos(-10);	// send missile to purgatory
+				m_si_missile.SetXPos(-10);	// send missile to purgatory
 				alien.SetState(false);
-				m_missile.SetState(false);
+				m_si_missile.SetState(false);
 			}
 		}
 	}
@@ -351,11 +351,11 @@ void GameSource::SI_CheckGameCondition()
 	// if it is, and any aliens are alive (state == false) player loses
 	// otherwise player has won
 
-	for (int i = 0; i < sizeof m_aliens / sizeof m_aliens[0]; i++) {
+	for (int i = 0; i < sizeof m_si_aliens / sizeof m_si_aliens[0]; i++) {
 		
 		// if all enemy states are false, player wins
 		
-		if (m_aliens[i].GetYPos() >= SI_PLAYER - 1) {
+		if (m_si_aliens[i].GetYPos() >= SI_PLAYER - 1) {
 			m_gamestate = LOSS;
 		}
 		

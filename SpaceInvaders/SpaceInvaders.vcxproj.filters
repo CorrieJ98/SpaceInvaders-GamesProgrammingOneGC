@@ -24,13 +24,13 @@
     <ClCompile Include="Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Missile.cpp">
+    <ClCompile Include="si_Missile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Alien.cpp">
+    <ClCompile Include="si_Alien.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Barrier.cpp">
+    <ClCompile Include="si_Barrier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameSource.cpp">
@@ -39,15 +39,18 @@
     <ClCompile Include="Ground.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="si_Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fg_Frog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Alien.h">
+    <ClInclude Include="si_Alien.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Barrier.h">
+    <ClInclude Include="si_Barrier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
@@ -56,16 +59,16 @@
     <ClInclude Include="GameSource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ground.h">
+    <ClInclude Include="si_Ground.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Missile.h">
+    <ClInclude Include="si_Missile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="si_Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ScreenBuffer.h">
@@ -74,7 +77,10 @@
     <ClInclude Include="Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
+    <ClInclude Include="fg_Frog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fg_Vehicle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

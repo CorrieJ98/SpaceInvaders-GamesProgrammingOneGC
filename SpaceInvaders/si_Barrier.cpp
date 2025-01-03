@@ -1,4 +1,4 @@
-#include "Barrier.h"
+#include "si_Barrier.h"
 int Barrier::m_x; // extra copy?
 
 void Barrier::SetPos(int x, int y)

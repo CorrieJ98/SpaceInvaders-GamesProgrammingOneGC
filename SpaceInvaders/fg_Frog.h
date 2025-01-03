@@ -1,4 +1,5 @@
 #pragma once
+#include "custom_macros.h"
 #include "GameObject.h"
 
 class Frog : public GameObject {

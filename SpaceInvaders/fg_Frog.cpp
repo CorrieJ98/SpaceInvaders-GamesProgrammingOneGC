@@ -1,30 +1,32 @@
 #include "fg_Frog.h"
+// https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 
 void Frog::Update()
 {
 	// W
-	if (GetKeyState(92) & 0x8000)
+	if (GetKeyState(0x57) & 0x8000)
 	{
-		if (m_ypos > 1)
-			--m_xpos;
+		if (m_ypos > GAMEWINY - (GAMEWINY - 1))
+			--m_ypos;
 	}
+
 	// S
-	else if (GetKeyState(88) & 0x8000)
+	else if (GetKeyState(0x53) & 0x8000)
 	{
-		if (m_xpos < 79)
-			++m_xpos;
+		if (m_ypos < GAMEWINY - 1)
+			++m_ypos;
 	}
 
 	// A
-	if (GetKeyState(65) & 0x8000)
+	if (GetKeyState(0x41) & 0x8000)
 	{
-		if (m_xpos > 1)
+		if (m_xpos > GAMEWINX - (GAMEWINX - 1))
 			--m_xpos;
 	}
 	// D
-	else if (GetKeyState(68) & 0x8000)
+	else if (GetKeyState(0x44) & 0x8000)
 	{
-		if (m_xpos < 79)
+		if (m_xpos < GAMEWINX - 1)
 			++m_xpos;
 	}
 }

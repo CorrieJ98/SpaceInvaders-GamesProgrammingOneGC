@@ -1,24 +1,19 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <array>
+#include "custom_macros.h"
 #include "Window.h"
-#include "si_Ground.h"
-#include "si_Player.h"
 #include "Menu.h"
 #include "ScreenBuffer.h"
+
+#include "si_Ground.h"
+#include "si_Player.h"
 #include "si_Alien.h"
 #include "si_Barrier.h"
 #include "si_Missile.h"
-#include <array>
-#include <vector>
 
-#define SI_GROUND 29
-#define SI_PLAYER 28
-#define SI_BARRIER_Y 25
-#define SI_BARRIERS 20
-#define SI_ALIEN_Y 1
-#define SI_ALIENS 20
-#define SI_SPEED 20
+#include "fg_Frog.h"
 
 class GameSource
 {
@@ -65,7 +60,7 @@ public:
 	void InitFrogger();
 	void FG_SetPlayerPos();
 	void FG_SetVehiclePos();
-	void FG_SetRoads();
+	void FG_SetLanes();
 	void FG_CheckGameCondition();
 #pragma endregion
 

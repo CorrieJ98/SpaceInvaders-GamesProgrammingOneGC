@@ -140,11 +140,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="fg_Locale.cpp" />
     <ClCompile Include="si_Alien.cpp" />
     <ClCompile Include="si_Barrier.cpp" />
     <ClCompile Include="fg_Frog.cpp" />
     <ClCompile Include="GameSource.cpp" />
-    <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="si_Ground.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="si_Missile.cpp" />
@@ -152,6 +153,12 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="custom_macros.h" />
+    <ClInclude Include="fg_Car.h" />
+    <ClInclude Include="fg_Home.h" />
+    <ClInclude Include="fg_Locale.h" />
+    <ClInclude Include="fg_LilyPad.h" />
+    <ClInclude Include="fg_Log.h" />
     <ClInclude Include="fg_Vehicle.h" />
     <ClInclude Include="si_Alien.h" />
     <ClInclude Include="si_Barrier.h" />

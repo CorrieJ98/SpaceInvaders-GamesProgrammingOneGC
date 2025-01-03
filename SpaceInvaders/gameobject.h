@@ -9,6 +9,7 @@ public:
 
 	GameObject() {}; 
 	GameObject(int x): m_xpos(x), m_ypos(0) {};
+	GameObject(int x, int y) : m_xpos(x), m_ypos(y) {};
 	~GameObject() {};
 
 	virtual void Update() { std::cout << "called Update from base" << '\n'; };
@@ -17,7 +18,7 @@ public:
 	int GetXPos() { return this->m_xpos; };
 	int GetYPos() { return this->m_ypos; };
 
-	void SetXPos(int m_x) { this->m_xpos = m_x; };
+	void SetXPos(int x) { this->m_xpos = x; };
 	void SetYPos(int y) { this->m_ypos = y; };
 
 protected:

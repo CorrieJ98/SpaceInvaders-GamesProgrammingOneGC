@@ -14,7 +14,7 @@ GameSource::~GameSource()
 void GameSource::SI_SetPlayerPos()
 {
 	m_si_player->SetXPos(15);
-	m_si_player->SetYPos(SI_PLAYER);
+	m_si_player->SetYPos(SI_PLAYER_Y);
 }
 
 void GameSource::SI_SetAlienPos() 
@@ -104,9 +104,9 @@ void GameSource::SwapBuffers()
 
 void GameSource::InitGame()
 {
-	m_game_window.SetWindow(80, 30, 1.5f);
+	m_game_window.SetWindow(GAMEWINX, GAMEWINY, 1.5f);
 	
-	CreateBuffers(80,30);
+	CreateBuffers(GAMEWINX, GAMEWINY);
 	m_gamestate = STARTSCREEN; // set starting gameState
 }
 
@@ -141,8 +141,24 @@ void GameSource::FG_SetVehiclePos()
 {
 }
 
-void GameSource::FG_SetRoads()
+void GameSource::FG_SetLanes()
 {
+	/*	3D array [4][GAMEWIDTH]
+	[4][11][]	grass with homes
+	[3][10][]	river
+	[3][9][]	river
+	[3][8][]	river
+	[3][7][]	river
+	[3][6][]	river
+	[2][5][]	pavement safe
+	[1][4][]	road
+	[1][3][]	road
+	[1][2][]	road
+	[1][1][]	road
+	[0][0][]	pavement safe
+
+	type	level	depth of level
+	*/
 }
 
 void GameSource::FG_CheckGameCondition()
@@ -234,21 +250,21 @@ void GameSource::SetGamePositions(int m_width, int m_height, int menu_choice)  /
 #pragma endregion
 
 #pragma region Player
-		if (i == (SI_PLAYER)) //Draw player
+		if (i == (SI_PLAYER_Y)) //Draw player
 		{
 			for (int j = 0; j < m_width; j++)
 				if (m_si_player->GetXPos() == j)
 				{
-					m_backBuffer.setChar(m_si_player->GetXPos(), SI_PLAYER, '^');
+					m_backBuffer.setChar(m_si_player->GetXPos(), SI_PLAYER_Y, '^');
 				}
 		}
 #pragma endregion
 
 #pragma region Ground
-		else if (i == (SI_GROUND))	//Draw ground
+		else if (i == (SI_GROUND_Y))	//Draw ground
 		{
 			for (int j = 0; j < m_width; j++)
-				m_backBuffer.setChar(j, SI_GROUND, '-');
+				m_backBuffer.setChar(j, SI_GROUND_Y, '-');
 		}
 	}
 #pragma endregion
@@ -355,7 +371,7 @@ void GameSource::SI_CheckGameCondition()
 		
 		// if all enemy states are false, player wins
 		
-		if (m_si_aliens[i].GetYPos() >= SI_PLAYER - 1) {
+		if (m_si_aliens[i].GetYPos() >= SI_PLAYER_Y - 1) {
 			m_gamestate = LOSS;
 		}
 		

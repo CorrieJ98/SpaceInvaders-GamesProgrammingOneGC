@@ -9,7 +9,11 @@ void Locale::PopulateLanesArray()
         m_lanes[i] = t;
 
         switch (i) {
-        case FG_START_LANES:
+        case 0:
+            t = STARTPAVE;
+            break;
+
+        case kOffsetStart:
             t = ROAD;
             break;
 

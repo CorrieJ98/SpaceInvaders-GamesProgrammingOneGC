@@ -32,40 +32,30 @@ public:
 	void GameLoop();
 	void InitGame();
 	void SetGameState(int state);
-	void ProcessInput(int menu_choice);
-	void UpdateGame(int menu_choice);
-	void SetGamePositions(int width, int height, int menu_choice);
-	void CheckCollision(int width, int height, int menu_choice);
 	void DrawGame(int width, int height);
 #pragma endregion
 
 #pragma region Space Invaders Pub
-	/*
-	All declarations relevant to Space Invaders are prefixed with
-	SI if called or otherwise accessed from outwith the scope
-	of Space Invaders (ie from main menu). Declarations which are
-	found localised entirely to Space Invaders may not have this
-	prefix.
-	*/
-
 	void InitSpaceInvaders();
 	void SI_SetPlayerPos();
 	void SI_SetAlienPos();
 	void SI_SetBarrierPos();
+	void SI_ProcessInput();
+	void SI_UpdateGame();
+	void SI_SetGamePositions(int width, int height);
+	void SI_CheckCollision(int width, int height);
 	void SI_CheckGameCondition();
 #pragma endregion
 
 #pragma region Frogger Pub
-	/*
-	All declarations relevant to Frogger are prefixed with
-	FG unless called or otherwise accessed from outwith 
-	the scope of Frogger (ie from main menu)
-	*/
-
 	void InitFrogger();
 	void FG_SetPlayerPos();
 	void FG_SetVehiclePos();
 	void FG_SetLanes();
+	void FG_ProcessInput();
+	void FG_UpdateGame();
+	void FG_SetGamePositions(int width, int height);
+	void FG_CheckCollision(int width, int height);
 	void FG_CheckGameCondition();
 #pragma endregion
 
@@ -95,13 +85,18 @@ private:
 
 #pragma region Space Invaders Priv
 	Ground m_si_ground;
-	Player* m_si_player; // raw pointer lecture
+	Player* m_si_player;
 	Missile m_si_missile;
 	std::array<Barrier, SI_BARRIERS> m_si_barriers;
 	std::array<Alien, SI_ALIENS> m_si_aliens;
 #pragma endregion
 
 #pragma region Frogger Priv
-	
+	Frog* m_fg_frog;
+	Locale m_fg_locale;
+	std::array<Log, FG_MAX_LOGS> m_fg_logs;
+	std::array<Car, FG_MAX_CARS> m_fg_cars;
+	std::array<LilyPad, FG_MAX_LILYPADS> m_fg_lilypads;
+	std::array<Home, FG_HOMES> m_fg_homes;
 #pragma endregion
 };

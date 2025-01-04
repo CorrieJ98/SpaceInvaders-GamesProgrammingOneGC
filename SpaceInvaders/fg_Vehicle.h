@@ -1,11 +1,10 @@
 #pragma once
 #include <string>
 #include "gameobject.h"
+#include "fg_Locale.h"
 
 class Vehicle abstract : public GameObject {
 public:
-	void Draw() override;
-	void Update() override;
 
 	void SetStr(std::string s) { this->m_str = s; }
 	std::string GetStr() { return this->m_str; }
@@ -16,6 +15,8 @@ public:
 	void SetState(bool state) { this->m_state = state; };
 	bool GetState() { return this->m_state; }
 
+	Locale::LaneTypes GetLaneType(){ return this->m_lane_type; }
+	void SetLaneType(Locale::LaneTypes lt) { this->m_lane_type = lt; }
 
 	int GetXPos() { return this->m_xpos; };
 	int GetYPos() { return this->m_ypos; };
@@ -24,9 +25,13 @@ public:
 	void MoveX();
 	void MoveY();
 	void ResetPos();
+	
 
-private:
+protected:
 	std::string m_str;
+	Locale::LaneTypes m_lane_type;
 	bool m_state;
+	bool m_can_move;
+	bool m_is_moving_right = true;
 	int m_speed;
 };

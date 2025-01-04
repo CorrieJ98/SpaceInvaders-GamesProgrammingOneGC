@@ -10,5 +10,5 @@ public:
 
 
 private:
-	bool m_state;
+	bool m_state, can_grow, is_grown;
 };

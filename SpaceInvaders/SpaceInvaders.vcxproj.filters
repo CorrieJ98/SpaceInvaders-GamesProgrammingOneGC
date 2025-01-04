@@ -48,6 +48,12 @@
     <ClCompile Include="fg_Locale.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fg_Vehicle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fg_LilyPad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="si_Alien.h">

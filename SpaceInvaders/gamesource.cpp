@@ -127,7 +127,9 @@ void GameSource::InitFrogger()
 	if (!m_game_initialised)
 	{
 
-
+		FG_SetPlayerPos();
+		FG_SetVehiclePos();
+		FG_SetLanes();
 
 		m_game_initialised = true;
 	}
@@ -135,6 +137,8 @@ void GameSource::InitFrogger()
 
 void GameSource::FG_SetPlayerPos()
 {
+	m_fg_frog->SetXPos(15);
+	m_fg_frog->SetYPos(FG_FROG_Y);
 }
 
 void GameSource::FG_SetVehiclePos()
@@ -143,35 +147,40 @@ void GameSource::FG_SetVehiclePos()
 
 void GameSource::FG_SetLanes()
 {
-	/*	3D array [4][GAMEWIDTH]
-	[4][11][]	grass with homes
-	[3][10][]	river
-	[3][9][]	river
-	[3][8][]	river
-	[3][7][]	river
-	[3][6][]	river
-	[2][5][]	pavement safe
-	[1][4][]	road
-	[1][3][]	road
-	[1][2][]	road
-	[1][1][]	road
-	[0][0][]	pavement safe
+	
+}
 
-	type	level	depth of level
-	*/
+void GameSource::FG_ProcessInput()
+{
+	m_fg_frog->Update();
+}
+
+void GameSource::FG_UpdateGame()
+{
+#pragma region Vehicle Movement
+
+#pragma endregion
+}
+
+void GameSource::FG_SetGamePositions(int width, int height)
+{
+}
+
+void GameSource::FG_CheckCollision(int width, int height)
+{
 }
 
 void GameSource::FG_CheckGameCondition()
 {
 }
 
-void GameSource::ProcessInput(int menu_choice)
+void GameSource::SI_ProcessInput()
 {
 	m_si_player->Update();
 	m_si_missile.FireMissile(*m_si_player);
 }
 
-void GameSource::UpdateGame(int menu_choice)
+void GameSource::SI_UpdateGame()
 {
 #pragma region Alien Movement
 	int speed;
@@ -190,7 +199,7 @@ void GameSource::SetGameState(int state)
 	m_gamestate = static_cast<gameState>(state); //casting lecture
 }
 
-void GameSource::SetGamePositions(int m_width, int m_height, int menu_choice)  //potentially save and read from textfile?
+void GameSource::SI_SetGamePositions(int m_width, int m_height)  //potentially save and read from textfile?
 { //Break here to show copies (Dynamic vs Static array)
 
 #pragma region Aliens
@@ -278,7 +287,7 @@ void GameSource::SetGamePositions(int m_width, int m_height, int menu_choice)  /
 #pragma endregion
 }
 
-void GameSource::CheckCollision(int m_width, int m_height, int menu_choice)
+void GameSource::SI_CheckCollision(int m_width, int m_height)
 {
 #pragma region Barrier
 	for (Barrier& barrier : m_si_barriers)
@@ -339,15 +348,21 @@ void GameSource::GameLoop()
 			break;
 		case SPACE_INVADERS:
 			this->InitSpaceInvaders();
-			this->ProcessInput(menuChoice);
-			this->UpdateGame(menuChoice);
-			this->SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight(), menuChoice);
-			this->CheckCollision(m_game_window.GetWidth(), m_game_window.GetHeight(), menuChoice);
+			this->SI_ProcessInput();
+			this->SI_UpdateGame();
+			this->SI_SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight());
+			this->SI_CheckCollision(m_game_window.GetWidth(), m_game_window.GetHeight());
 			this->SwapBuffers();
 			this->DrawGame(m_game_window.GetWidth(), m_game_window.GetHeight());
 			break;
 		case FROGGER:
 			this->InitFrogger();
+			this->SI_ProcessInput();
+			this->SI_UpdateGame();
+			this->SI_SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight());
+			this->SI_CheckCollision(m_game_window.GetWidth(), m_game_window.GetHeight());
+			this->SwapBuffers();
+			this->DrawGame(m_game_window.GetWidth(), m_game_window.GetHeight());
 			break;
 		case WIN:
 			system("cls");

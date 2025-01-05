@@ -21,6 +21,8 @@ public:
 	void SetXPos(int x) { this->m_xpos = x; };
 	void SetYPos(int y) { this->m_ypos = y; };
 
+
+
 protected:
 	int m_xpos, m_ypos;
 };

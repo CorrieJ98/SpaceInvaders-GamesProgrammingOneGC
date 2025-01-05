@@ -15,9 +15,6 @@ public:
 	void SetState(bool state) { this->m_state = state; };
 	bool GetState() { return this->m_state; }
 
-	Locale::LaneTypes GetLaneType(){ return this->m_lane_type; }
-	void SetLaneType(Locale::LaneTypes lt) { this->m_lane_type = lt; }
-
 	int GetXPos() { return this->m_xpos; };
 	int GetYPos() { return this->m_ypos; };
 
@@ -29,7 +26,6 @@ public:
 
 protected:
 	std::string m_str;
-	Locale::LaneTypes m_lane_type;
 	bool m_state;
 	bool m_can_move;
 	bool m_is_moving_right = true;

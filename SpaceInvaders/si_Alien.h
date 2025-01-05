@@ -26,6 +26,8 @@ public:
 	void MoveDown();
 	void ResetPos();
 
+	char GetChar() { return kAlienChar; }
+
 private:
 	bool m_state;
 	bool m_is_moving_right = true;
@@ -33,5 +35,6 @@ private:
 	static int m_group_speed;
 	static const int m_kGroupWidth = 60;
 	static int m_group_height;
+	static const char kAlienChar = 'X';
 };
 

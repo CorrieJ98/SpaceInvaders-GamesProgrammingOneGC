@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <array>
+
 #include "custom_macros.h"
 #include "Window.h"
 #include "Menu.h"
@@ -84,7 +85,7 @@ private:
 #pragma endregion
 
 #pragma region Space Invaders Priv
-	Ground m_si_ground;
+	//Ground m_si_ground; obsolete
 	Player* m_si_player;
 	Missile m_si_missile;
 	std::array<Barrier, SI_BARRIERS> m_si_barriers;

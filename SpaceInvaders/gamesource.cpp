@@ -143,6 +143,7 @@ void GameSource::FG_SetPlayerPos()
 
 void GameSource::FG_SetVehiclePos()
 {
+
 }
 
 void GameSource::FG_SetLanes()
@@ -157,14 +158,48 @@ void GameSource::FG_ProcessInput()
 
 void GameSource::FG_UpdateGame()
 {
-#pragma region Vehicle Movement
+#pragma region Car Movement
+
+#pragma endregion
+
+#pragma region Log Movement
+
+#pragma endregion
+
+#pragma region Lilypad Movement
 
 #pragma endregion
 }
 
 void GameSource::FG_SetGamePositions(int width, int height)
 {
+#pragma region Cars
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++) {
+			for (int k = 0; k < FG_MAX_CARS; k++) {
+				if ((m_fg_cars[k].GetYPos() == i) && (m_fg_cars[k].GetXPos() == j)) {
+					m_backBuffer.setChar(m_fg_cars[k].GetXPos(), m_fg_cars[k].GetYPos(), m_fg_cars[k].GetChar());
+				}
+			}
+		}
+	}
+#pragma endregion
 }
+/*
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++) // Draw aliens
+		{
+			for (int k = 0; k < SI_ALIENS; k++)
+			{
+				if ((m_si_aliens[k].GetYPos() == i) && (m_si_aliens[k].GetXPos() == j))
+				{
+					m_backBuffer.setChar(m_si_aliens[k].GetXPos(), m_si_aliens[k].GetYPos(), m_si_aliens[k].GetChar());
+				}
+			}
+		}
+}*/
 
 void GameSource::FG_CheckCollision(int width, int height)
 {
@@ -199,19 +234,19 @@ void GameSource::SetGameState(int state)
 	m_gamestate = static_cast<gameState>(state); //casting lecture
 }
 
-void GameSource::SI_SetGamePositions(int m_width, int m_height)  //potentially save and read from textfile?
+void GameSource::SI_SetGamePositions(int width, int height)  //potentially save and read from textfile?
 { //Break here to show copies (Dynamic vs Static array)
 
 #pragma region Aliens
-	for (int i = 0; i < m_height; i++)
+	for (int i = 0; i < height; i++)
 	{	
-		for (int j = 0; j < m_width; j++) // Draw aliens
+		for (int j = 0; j < width; j++) // Draw aliens
 		{
-			for (int aNo = 0; aNo < 20; aNo++) //3rd for loop, can this be improved? 2D array
+			for (int k = 0; k < SI_ALIENS; k++)
 			{
-				if ((m_si_aliens[aNo].GetYPos() == i) && (m_si_aliens[aNo].GetXPos() == j))
+				if ((m_si_aliens[k].GetYPos() == i) && (m_si_aliens[k].GetXPos() == j))
 				{
-						m_backBuffer.setChar(m_si_aliens[aNo].GetXPos(),m_si_aliens[aNo].GetYPos(),'X');
+						m_backBuffer.setChar(m_si_aliens[k].GetXPos(),m_si_aliens[k].GetYPos(),m_si_aliens[k].GetChar());
 				}
 			}
 		}
@@ -220,7 +255,7 @@ void GameSource::SI_SetGamePositions(int m_width, int m_height)  //potentially s
 #pragma region Barriers Array
 		if (i == (SI_BARRIER_Y))
 		{
-			for (int j = 0; j < m_width; j++)
+			for (int j = 0; j < width; j++)
 			{
 				for (int k = 0; k < sizeof m_si_barriers / sizeof m_si_barriers[k] ; k++)
 				{
@@ -238,8 +273,6 @@ void GameSource::SI_SetGamePositions(int m_width, int m_height)  //potentially s
 #pragma endregion
 
 #pragma region Barriers Vector Obsolete
-
-
 		/*	if (i == (BARRIER_Y))
 		{
 			for (int j = 0; j < m_width; j++)
@@ -261,18 +294,18 @@ void GameSource::SI_SetGamePositions(int m_width, int m_height)  //potentially s
 #pragma region Player
 		if (i == (SI_PLAYER_Y)) //Draw player
 		{
-			for (int j = 0; j < m_width; j++)
+			for (int j = 0; j < width; j++)
 				if (m_si_player->GetXPos() == j)
 				{
 					m_backBuffer.setChar(m_si_player->GetXPos(), SI_PLAYER_Y, '^');
 				}
 		}
 #pragma endregion
-
+		  
 #pragma region Ground
 		else if (i == (SI_GROUND_Y))	//Draw ground
 		{
-			for (int j = 0; j < m_width; j++)
+			for (int j = 0; j < width; j++)
 				m_backBuffer.setChar(j, SI_GROUND_Y, '-');
 		}
 	}
@@ -287,7 +320,7 @@ void GameSource::SI_SetGamePositions(int m_width, int m_height)  //potentially s
 #pragma endregion
 }
 
-void GameSource::SI_CheckCollision(int m_width, int m_height)
+void GameSource::SI_CheckCollision(int width, int height)
 {
 #pragma region Barrier
 	for (Barrier& barrier : m_si_barriers)
@@ -324,11 +357,11 @@ SI_CheckGameCondition();
 
 }
 
-void GameSource::DrawGame(int m_width, int m_height)
+void GameSource::DrawGame(int width, int height)
 {
-	for (int i = 0; i < m_height; i++)
+	for (int i = 0; i < height; i++)
 	{
-		for (int j = 0; j < m_width; j++) 
+		for (int j = 0; j < width; j++) 
 		{
 			m_game_window.setCursorPosition(j,i);
 			std::cout << m_frontBuffer.getChar(j,i);

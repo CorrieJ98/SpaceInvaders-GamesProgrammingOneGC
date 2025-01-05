@@ -54,6 +54,9 @@
     <ClCompile Include="fg_LilyPad.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fg_Car.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="si_Alien.h">

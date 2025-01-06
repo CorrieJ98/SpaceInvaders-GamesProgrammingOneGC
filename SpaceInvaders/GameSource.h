@@ -99,5 +99,11 @@ private:
 	std::array<Car, FG_MAX_CARS> m_fg_cars;
 	std::array<LilyPad, FG_MAX_LILYPADS> m_fg_lilypads;
 	std::array<Home, FG_HOMES> m_fg_homes;
+
+	LaneLim m_start_lim;
+	LaneLim m_road_lim;
+	LaneLim m_pave_lim;
+	LaneLim m_river_lim;
+	LaneLim m_grass_lim;
 #pragma endregion
 };

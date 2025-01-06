@@ -1,19 +1,5 @@
 #include "fg_Car.h"
 
-void Car::SpawnCar()
-{
-		int r = 0 + (rand() % FG_ROAD_LANES);
-		int dir = 0 + (rand() % 1);
-
-		this->SetState(true); 
-		// this->m_xpos = lane[r].xpos; this->ypos = lane[r].ypos
-		/*
-			if(dir == 1) spawn left and move right
-			if(dir == 0) spawn right and move left
-		*/
-	
-}
-
 void Car::Update()
 {
 	if (m_state) {

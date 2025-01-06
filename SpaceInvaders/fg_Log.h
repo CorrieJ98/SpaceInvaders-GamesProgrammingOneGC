@@ -4,8 +4,11 @@
 
 class Log : public Vehicle {
 public:
-protected:
-	
+	Log() : m_state(true), m_lane_type(Locale::RIVER) {}
+
+	char GetChar() { return kLogChar; }
 private:
 	bool m_is_moving, m_state;
+	Locale::LaneTypes m_lane_type;
+	static const char kLogChar = '=';
 };

@@ -3,15 +3,15 @@
 
 class Home : GameObject {
 public:
-	void FillHome() { m_char = &m_full_home_char; };
-	void EmptyHome() { m_char = &m_empty_home_char; }
+	void FillHome() { m_char = &m_kFullHomeChar; };
+	void EmptyHome() { m_char = &m_kEmptyHomeChar; }
 
 protected:
-	char* m_char = &m_empty_home_char;
+	const char* m_char = &m_kEmptyHomeChar;
 
 private:
-	bool m_player_touched;
+	bool m_player_present;
 	bool m_state;
-	char m_empty_home_char = 'O';
-	char m_full_home_char = '0';
+	static const char m_kEmptyHomeChar = 'O';
+	static const char m_kFullHomeChar = '0';
 };

@@ -25,3 +25,8 @@ public:
 private:
 	std::array<LaneTypes, (FG_GRASS_LANES + FG_RIVER_LANES + FG_MIDPAVE_LANES + FG_ROAD_LANES + FG_START_LANES)> m_lanes;
 };
+
+struct LaneLim {
+	int bot, size;
+	Locale::LaneTypes type;
+};

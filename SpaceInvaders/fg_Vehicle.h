@@ -6,9 +6,6 @@
 class Vehicle abstract : public GameObject {
 public:
 
-	void SetStr(std::string s) { this->m_str = s; }
-	std::string GetStr() { return this->m_str; }
-
 	void SetPos(int x, int y) { this->m_xpos = x, this->m_ypos = y; };
 	void SetSpeed(int speed) { this->m_speed = speed; };
 
@@ -18,6 +15,8 @@ public:
 	int GetXPos() { return this->m_xpos; };
 	int GetYPos() { return this->m_ypos; };
 
+	void SetLaneLimits(int lower_lim, int upper_lim, Locale::LaneTypes lane_type);
+
 	void Movement();
 	void MoveX();
 	void MoveY();
@@ -25,7 +24,7 @@ public:
 	
 
 protected:
-	std::string m_str;
+	LaneLim m_lane_limits;
 	bool m_state;
 	bool m_can_move;
 	bool m_is_moving_right = true;

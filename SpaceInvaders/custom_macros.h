@@ -11,14 +11,13 @@
 #define SI_ALIENS 20
 #define SI_SPEED 20
 
-#define FG_FROG_Y 29
-#define FG_RIVER_LANES 5
-#define FG_RIVER_Y
-#define FG_ROAD_LANES 4
-#define FG_START_LANES 1
-#define FG_GRASS_LANES 1
-#define FG_MIDPAVE_LANES 1
+#define FG_FROG_Y 28
 #define FG_HOMES 4
-#define FG_MAX_LOGS 10
+#define FG_GRASS_LANES 3
+#define FG_RIVER_LANES 9
+#define FG_MIDPAVE_LANES 3
+#define FG_ROAD_LANES 6
+#define FG_START_LANES 3
+#define FG_MAX_LOGS 16
 #define FG_MAX_CARS 10
-#define FG_MAX_LILYPADS 10
+#define FG_MAX_LILYPADS 8

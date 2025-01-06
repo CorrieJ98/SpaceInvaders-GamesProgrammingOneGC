@@ -1,5 +1,10 @@
 #include "fg_LilyPad.h"
 
+void LilyPad::Update()
+{
+
+}
+
 void LilyPad::Lifecycle()
 {
 	Regrow();

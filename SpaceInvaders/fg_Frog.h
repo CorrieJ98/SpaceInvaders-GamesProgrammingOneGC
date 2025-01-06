@@ -4,7 +4,7 @@
 
 class Frog : public GameObject {
 public:
-	Frog() : GameObject(20) {} ;
+	Frog() : GameObject(20, 29) {} ;
 	void Update() override;
 
 	char GetChar() { return this->m_kFrogChar; }

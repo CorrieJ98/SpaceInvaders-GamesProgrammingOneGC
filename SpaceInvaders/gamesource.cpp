@@ -160,7 +160,7 @@ void GameSource::FG_SetVehiclePos()
 
 void GameSource::FG_SetLanes()
 {
-	for(int i = 0;)
+
 }
 
 void GameSource::FG_ProcessInput()
@@ -185,18 +185,32 @@ void GameSource::FG_UpdateGame()
 
 void GameSource::FG_SetGamePositions(int width, int height)
 {
-#pragma region Cars
+
 	for (int i = 0; i < height; i++)
 	{
 		for (int j = 0; j < width; j++) {
+
+#pragma region Cars
 			for (int k = 0; k < FG_MAX_CARS; k++) {
 				if ((m_fg_cars[k].GetYPos() == i) && (m_fg_cars[k].GetXPos() == j)) {
 					m_backBuffer.setChar(m_fg_cars[k].GetXPos(), m_fg_cars[k].GetYPos(), m_fg_cars[k].GetChar());
 				}
 			}
+#pragma endregion
+
+#pragma region Player
+			if (i == (FG_FROG_Y)) //Draw player
+			{
+				for (int j = 0; j < width; j++)
+					if (m_fg_frog->GetXPos() == j)
+					{
+						m_backBuffer.setChar(m_fg_frog->GetXPos(), FG_FROG_Y, m_fg_frog->GetChar());
+					}
+			}
+#pragma endregion
 		}
 	}
-#pragma endregion
+
 }
 
 void GameSource::FG_CheckCollision(int width, int height)

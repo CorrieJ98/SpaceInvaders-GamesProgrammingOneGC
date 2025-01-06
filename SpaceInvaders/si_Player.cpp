@@ -4,14 +4,14 @@
 
 void Player::Update()
 {
-	// A
-	if (GetKeyState(0x41) & 0x8000)
+	// A or Left Arrow
+	if (GetKeyState(0x41) & 0x8000 || GetKeyState(VK_LEFT) & 0x8000)
 	{
 		if (m_xpos > GAMEWINX - (GAMEWINX - 1))
 			--m_xpos;
 	}
-	// D
-	else if (GetKeyState(0x44) & 0x8000)
+	// D or Right Arrow
+	else if (GetKeyState(0x44) & 0x8000 || GetKeyState(VK_RIGHT) & 0x8000)
 	{
 		if (m_xpos < GAMEWINX - 1)
 			++m_xpos;

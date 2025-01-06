@@ -4,10 +4,11 @@ int Alien::m_group_speed; // define static variable
 
 extern int menuChoice; 
 
-GameSource::GameSource(): m_si_player(new Player()) {} // heap allocatoin (explain new and pointer)
+GameSource::GameSource() : m_si_player(new Player()), m_fg_frog(new Frog()) {} // heap allocatoin (explain new and pointer)
 
 GameSource::~GameSource()
 {
+	delete m_fg_frog;
 	delete m_si_player;
 }; // ";" is not needed but is will not break the code
 
@@ -126,29 +127,40 @@ void GameSource::InitFrogger()
 {
 	if (!m_game_initialised)
 	{
-
 		FG_SetPlayerPos();
 		FG_SetVehiclePos();
 		FG_SetLanes();
-
 		m_game_initialised = true;
 	}
 }
 
 void GameSource::FG_SetPlayerPos()
 {
-	m_fg_frog->SetXPos(15);
+	m_fg_frog->SetXPos(40);
 	m_fg_frog->SetYPos(FG_FROG_Y);
 }
 
 void GameSource::FG_SetVehiclePos()
 {
+	for (int i = 0; i < FG_MAX_CARS; i++)
+	{
+		m_fg_cars[i] = Car();
+	}
 
+	for (int i = 0; i < FG_MAX_LOGS; i++)
+	{
+		m_fg_logs[i] = Log();
+	}
+
+	for (int i = 0; i < FG_MAX_LILYPADS; i++)
+	{
+		m_fg_lilypads[i] = LilyPad();
+	}
 }
 
 void GameSource::FG_SetLanes()
 {
-	
+	for(int i = 0;)
 }
 
 void GameSource::FG_ProcessInput()
@@ -186,20 +198,6 @@ void GameSource::FG_SetGamePositions(int width, int height)
 	}
 #pragma endregion
 }
-/*
-	for (int i = 0; i < height; i++)
-	{
-		for (int j = 0; j < width; j++) // Draw aliens
-		{
-			for (int k = 0; k < SI_ALIENS; k++)
-			{
-				if ((m_si_aliens[k].GetYPos() == i) && (m_si_aliens[k].GetXPos() == j))
-				{
-					m_backBuffer.setChar(m_si_aliens[k].GetXPos(), m_si_aliens[k].GetYPos(), m_si_aliens[k].GetChar());
-				}
-			}
-		}
-}*/
 
 void GameSource::FG_CheckCollision(int width, int height)
 {
@@ -390,10 +388,10 @@ void GameSource::GameLoop()
 			break;
 		case FROGGER:
 			this->InitFrogger();
-			this->SI_ProcessInput();
-			this->SI_UpdateGame();
-			this->SI_SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight());
-			this->SI_CheckCollision(m_game_window.GetWidth(), m_game_window.GetHeight());
+			this->FG_ProcessInput();
+			this->FG_UpdateGame();
+			this->FG_SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight());
+			this->FG_CheckCollision(m_game_window.GetWidth(), m_game_window.GetHeight());
 			this->SwapBuffers();
 			this->DrawGame(m_game_window.GetWidth(), m_game_window.GetHeight());
 			break;

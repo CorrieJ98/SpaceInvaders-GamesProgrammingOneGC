@@ -28,7 +28,7 @@ void Menu::Run()
             break;
         case 3:
             menuChoice = 3;
-            valid = false;
+            valid = true;
             system("cls"); // clear the screen
             break;
         default:

@@ -3,6 +3,10 @@
 
 class LilyPad : public Vehicle {
 public:
+
+	LilyPad() : m_state(true) {};
+	LilyPad(const LilyPad& l) : m_state(l.m_state) {};
+
 	void Lifecycle();
 	
 	void Regrow();

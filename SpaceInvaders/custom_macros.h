@@ -11,8 +11,9 @@
 #define SI_ALIENS 20
 #define SI_SPEED 20
 
-#define FG_FROG_Y 20
+#define FG_FROG_Y 29
 #define FG_RIVER_LANES 5
+#define FG_RIVER_Y
 #define FG_ROAD_LANES 4
 #define FG_START_LANES 1
 #define FG_GRASS_LANES 1

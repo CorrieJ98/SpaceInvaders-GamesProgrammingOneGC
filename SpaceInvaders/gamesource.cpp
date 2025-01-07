@@ -249,42 +249,42 @@ void GameSource::FG_SetGamePositions(int width, int height)
 			// and more on each if statement.
 
 			//Draw Start borders
-			if (i == (FG_FROG_Y + 1))
+			if (i == (m_start_lim.bot-1))
 			{
 				for (int j = 0; j < width; j++)
-					m_backBuffer.setChar(j, height - 1, '-');
+					m_backBuffer.setChar(j, m_start_lim.bot - 1, '-');
 			}
 
-			if (i == (FG_FROG_Y - FG_START_LANES))
+			if (i == (m_road_lim.bot))
 			{
 				for (int j = 0; j < width; j++)
-					m_backBuffer.setChar(j, FG_FROG_Y - 1, '-');
+					m_backBuffer.setChar(j, m_road_lim.bot, '-');
 			}
 
 
 			// Draw Road borders
-			if (i == (height - FG_START_LANES))
+			if (i == (m_road_lim.bot - m_road_lim.size))
 			{
 				for (int j = 0; j < width; j++)
-					m_backBuffer.setChar(j, FG_FROG_Y - FG_ROAD_LANES, '-');
+					m_backBuffer.setChar(j, m_road_lim.bot - m_road_lim.size, '-');
 			}
 
-			if (i == (height - m_road_lim.bot))
+			if (i == (m_pave_lim.bot - m_pave_lim.size))
 			{
 				for (int j = 0; j < width; j++)
-					m_backBuffer.setChar(j, FG_FROG_Y - FG_ROAD_LANES, '-');
+					m_backBuffer.setChar(j, m_pave_lim.bot - m_pave_lim.size, '-');
 			}
 
 			// Draw mid pavement borders
-			if (i == (height - m_pave_lim.bot))
+			if (i == (m_river_lim.bot - m_river_lim.size))
 			{
 				for (int j = 0; j < width; j++)
-					m_backBuffer.setChar(j, FG_FROG_Y - FG_ROAD_LANES, '-');
+					m_backBuffer.setChar(j, m_river_lim.bot - m_river_lim.size, '-');
 			}
 
-			if (i == (height - m_river_lim.bot)) {
+			if (i == (m_grass_lim.bot - m_grass_lim.size)) {
 				for (int j = 0; j < width; j++)
-					m_backBuffer.setChar(j, FG_FROG_Y - FG_ROAD_LANES, '-');
+					m_backBuffer.setChar(j, m_grass_lim.bot - m_grass_lim.size, '-');
 			}
 		
 #pragma endregion

@@ -14,9 +14,9 @@
 #define FG_FROG_Y 28
 #define FG_HOMES 4
 #define FG_GRASS_LANES 3
-#define FG_RIVER_LANES 9
+#define FG_RIVER_LANES 13
 #define FG_MIDPAVE_LANES 3
-#define FG_ROAD_LANES 6
+#define FG_ROAD_LANES 8
 #define FG_START_LANES 3
 #define FG_MAX_LOGS 16
 #define FG_MAX_CARS 10

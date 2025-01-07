@@ -4,7 +4,7 @@
 class LilyPad : public Vehicle {
 public:
 
-	LilyPad() : m_state(true), m_lane_type(Locale::RIVER) {}
+	LilyPad() : m_state(true), m_can_grow(false), m_is_grown(true), m_lane_type(Locale::RIVER) {}
 	LilyPad(const LilyPad& l) : m_state(l.m_state) {};
 
 	void Update();
@@ -17,7 +17,7 @@ public:
 	char GetChar() { return kLilypadChar; }
 
 private:
-	bool m_state, can_grow, is_grown;
+	bool m_state, m_can_grow, m_is_grown;
 	Locale::LaneTypes m_lane_type;
 	static const char kLilypadChar = '@';
 };

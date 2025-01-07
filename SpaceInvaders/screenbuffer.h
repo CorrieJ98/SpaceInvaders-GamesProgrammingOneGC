@@ -4,7 +4,7 @@ struct ScreenBuffer {
 public:
     ScreenBuffer() {};
 
-    ScreenBuffer(int m_x, int y) : row(m_x), col(y) {
+    ScreenBuffer(int x, int y) : row(x), col(y) {
         m_buffer = new char* [row];
         for (int i = 0; i < row; ++i) {
             m_buffer[i] = new char[col];

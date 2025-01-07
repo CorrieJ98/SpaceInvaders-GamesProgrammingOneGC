@@ -160,7 +160,7 @@ void GameSource::FG_SetVehiclePos()
 
 void GameSource::FG_SetLanes()
 {
-	this->m_start_lim.bot = GAMEWINY;
+	this->m_start_lim.bot = GAMEWINY - 1;
 	this->m_start_lim.size = FG_START_LANES;
 	this->m_start_lim.type = Locale::STARTPAVE;
 
@@ -189,32 +189,35 @@ void GameSource::FG_ProcessInput()
 void GameSource::FG_UpdateGame()
 {
 #pragma region Car Movement
+	for (Car& car : m_fg_cars) {
+		car.SpawnVehicle(m_road_lim.bot, m_road_lim.size);
+		//car.MoveX();
+	}
 
 #pragma endregion
 
 #pragma region Log Movement
+	for (Log& log : m_fg_logs) {
+		log.SpawnVehicle(m_river_lim.bot, m_river_lim.size);
+//		log.MoveX();
+	}
 
 #pragma endregion
 
 #pragma region Lilypad Movement
+	for (LilyPad& lilypad : m_fg_lilypads) {
+		lilypad.SpawnVehicle(m_river_lim.bot, m_river_lim.size);
+//		lilypad.MoveX();
+	}
 
 #pragma endregion
 }
 
 void GameSource::FG_SetGamePositions(int width, int height)
 {
-
-	for (int i = 0; i < height; i++)
+	for (int i = 0; i < height; i++)		// screen height
 	{
-		for (int j = 0; j < width; j++) {
-
-#pragma region Cars
-			for (int k = 0; k < FG_MAX_CARS; k++) {
-				if ((m_fg_cars[k].GetYPos() == i) && (m_fg_cars[k].GetXPos() == j)) {
-					m_backBuffer.setChar(m_fg_cars[k].GetXPos(), m_fg_cars[k].GetYPos(), m_fg_cars[k].GetChar());
-				}
-			}
-#pragma endregion
+		for (int j = 0; j < width; j++) {	// screen width
 
 #pragma region Player
 			if (i == (FG_FROG_Y)) //Draw player
@@ -227,32 +230,53 @@ void GameSource::FG_SetGamePositions(int width, int height)
 			}
 #pragma endregion
 
+#pragma region Cars
+			/*for (int k = 0; k < FG_MAX_CARS; k++) {
+				if ((m_fg_cars[k].GetYPos() == i) && (m_fg_cars[k].GetXPos() == j)) {
+					m_backBuffer.setChar(m_fg_cars[k].GetXPos(), m_fg_cars[k].GetYPos(), m_fg_cars[k].GetChar());
+				}
+			}*/
+
+			for (Car& car : m_fg_cars) {
+				if ((car.GetYPos() == i) && (car.GetXPos() == j)) {
+					m_backBuffer.setChar(car.GetXPos(), car.GetYPos(), car.GetChar());
+				}
+			}
+#pragma endregion
+
 #pragma region Logs
-			for (int k = 0; k < FG_MAX_LOGS; k++) {
+			/*for (int k = 0; k < FG_MAX_LOGS; k++) {
 				if ((m_fg_logs[k].GetYPos() == i) && (m_fg_logs[k].GetXPos() == j)) {
 					m_backBuffer.setChar(m_fg_cars[k].GetXPos(), m_fg_logs[k].GetYPos(), m_fg_logs[k].GetChar());
+				}
+			}*/
+
+			for (Log& log : m_fg_logs) {
+				if ((log.GetYPos() == i) && (log.GetXPos() == j)) {
+					m_backBuffer.setChar(log.GetXPos(), log.GetYPos(), log.GetChar());
 				}
 			}
 #pragma endregion
 #pragma region Lilypads
-			for (int k = 0; k < FG_MAX_LILYPADS; k++) {
+			/*for (int k = 0; k < FG_MAX_LILYPADS; k++) {
 				if ((m_fg_lilypads[k].GetYPos() == i) && (m_fg_lilypads[k].GetXPos() == j)) {
 					m_backBuffer.setChar(m_fg_cars[k].GetXPos(), m_fg_lilypads[k].GetYPos(), m_fg_lilypads[k].GetChar());
+				}
+			}*/
+
+			for (LilyPad& lilypad : m_fg_lilypads) {
+				if ((lilypad.GetYPos() == i) && (lilypad.GetXPos() == j)) {
+					m_backBuffer.setChar(lilypad.GetXPos(), lilypad.GetYPos(), lilypad.GetChar());
 				}
 			}
 #pragma endregion
 
 #pragma region Lane Borders
-			// This whole section is terribly verbose, I am so sorry.
-			// I start from the bottom of the screen and draw the relevant
-			// lane borders from the bottom - upwards offsetting more
-			// and more on each if statement.
-
-			//Draw Start borders
-			if (i == (m_start_lim.bot-1))
+			
+			if (i == (m_start_lim.bot))
 			{
 				for (int j = 0; j < width; j++)
-					m_backBuffer.setChar(j, m_start_lim.bot - 1, '-');
+					m_backBuffer.setChar(j, m_start_lim.bot, '-');
 			}
 
 			if (i == (m_road_lim.bot))
@@ -261,8 +285,6 @@ void GameSource::FG_SetGamePositions(int width, int height)
 					m_backBuffer.setChar(j, m_road_lim.bot, '-');
 			}
 
-
-			// Draw Road borders
 			if (i == (m_road_lim.bot - m_road_lim.size))
 			{
 				for (int j = 0; j < width; j++)
@@ -275,7 +297,6 @@ void GameSource::FG_SetGamePositions(int width, int height)
 					m_backBuffer.setChar(j, m_pave_lim.bot - m_pave_lim.size, '-');
 			}
 
-			// Draw mid pavement borders
 			if (i == (m_river_lim.bot - m_river_lim.size))
 			{
 				for (int j = 0; j < width; j++)
@@ -310,8 +331,9 @@ void GameSource::SI_UpdateGame()
 {
 #pragma region Alien Movement
 
-	// Unfortunately, this implementation causes the game to move at an unplayable
-	// speed and as such, is not being used.
+	// Unfortunately, this implementation causes the game to move
+	// at an unplayable speed and as such, is not currently in use
+	// nor is there an implementation in the Alien::Movement() method.
 
 	int speed;
 	speed = m_si_aliens[0].GetYPos() > SI_SPEED ? 2 : 1;
@@ -477,8 +499,8 @@ void GameSource::GameLoop()
 		case SPACE_INVADERS:
 			this->InitSpaceInvaders();
 			this->SI_ProcessInput();
-			this->SI_UpdateGame();
 			this->SI_SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight());
+			this->SI_UpdateGame();
 			this->SI_CheckCollision(m_game_window.GetWidth(), m_game_window.GetHeight());
 			this->SwapBuffers();
 			this->DrawGame(m_game_window.GetWidth(), m_game_window.GetHeight());
@@ -486,11 +508,14 @@ void GameSource::GameLoop()
 		case FROGGER:
 			this->InitFrogger();
 			this->FG_ProcessInput();
-			this->FG_UpdateGame();
 			this->FG_SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight());
+			this->FG_UpdateGame();
 			this->FG_CheckCollision(m_game_window.GetWidth(), m_game_window.GetHeight());
 			this->SwapBuffers();
 			this->DrawGame(m_game_window.GetWidth(), m_game_window.GetHeight());
+			break;
+		case PONG:
+			// personal project?? ;)
 			break;
 		case WIN:
 			system("cls");

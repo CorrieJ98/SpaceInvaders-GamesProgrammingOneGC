@@ -77,6 +77,7 @@ private:
 		EXIT,
 		SPACE_INVADERS,
 		FROGGER,
+		PONG,
 		WIN,
 		LOSS
 	};

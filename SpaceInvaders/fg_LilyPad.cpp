@@ -14,14 +14,14 @@ void LilyPad::Lifecycle()
 
 void LilyPad::Regrow()
 {
-	if (can_grow && !is_grown && !this->GetState()) {
+	if (m_can_grow && !m_is_grown && !this->GetState()) {
 		this->SetState(true);
 	}
 }
 
 void LilyPad::Decay()
 {
-	if (!can_grow && is_grown && this->GetState()) {
+	if (!m_can_grow && m_is_grown && this->GetState()) {
 		this->SetState(false);
 	}
 }

@@ -5,10 +5,8 @@ class Car : public Vehicle {
 public:
 	Car() : m_state(true), m_lane_type(Locale::ROAD){}
 
-	void Update();
+	void Update() override;
 	char GetChar() { return kCarChar; }
-
-	void SpawnVehicle();
 private:
 	bool m_state;
 	static const char kCarChar = 'X';

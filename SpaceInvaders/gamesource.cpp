@@ -305,6 +305,13 @@ void GameSource::FG_SetGamePositions(int width, int height)
 			}
 #pragma endregion
 
+#pragma region Homes
+			for (Home& home : m_fg_homes) {
+				if ((home.GetYPos() == i) && (home.GetXPos() == j)) {
+					m_backBuffer.setChar(home.GetXPos(), home.GetYPos(), home.GetChar());
+				}
+			}
+
 #pragma region Lane Borders
 			
 			if (i == (m_start_lim.bot))

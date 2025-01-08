@@ -3,7 +3,7 @@
 #include <string>
 #include <Windows.h>
 
-class GameObject
+class GameObject abstract
 {
 public:
 

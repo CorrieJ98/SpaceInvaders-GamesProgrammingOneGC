@@ -7,11 +7,36 @@ void Vehicle::SetLaneLimits(int lower_lim, int lane_size, Locale::LaneTypes lane
 	this->m_lane_limits.type = lane_type;
 }
 
+void Vehicle::Movement() {
+	if (m_state) {
+
+		if (m_can_move) {
+
+			MoveX();
+
+			if (this->m_xpos > 79 || this->m_xpos < 1) {
+				// MoveY();
+
+				this->SetState(false);
+			}
+		}
+	}
+}
+
 void Vehicle::MoveX()
 {
-	if (m_state) {
-		this->m_xpos + m_speed;
+	if (m_is_moving_right) {
+		this->SetPos(++m_xpos, m_ypos);
 	}
+	else {
+		this->SetPos(--m_xpos, m_ypos);
+	}
+}
+
+void Vehicle::MoveY()
+{
+	this->SetPos(m_xpos, ++m_ypos);
+	m_is_moving_right = !m_is_moving_right;
 }
 
 void Vehicle::ResetPos()
@@ -24,26 +49,12 @@ void Vehicle::ResetPos()
 
 void Vehicle::SpawnVehicle(int bot_limit, int lane_size)
 {
-	int lane_number = bot_limit + (rand() % lane_size);
+	int lane_number = bot_limit - (rand() % lane_size);
+	bool called = false;
 
-	this->SetState(true);
-	this->SetPos(10, 10);
-	this->SetSpeed(1);
-	this->MoveX();
-
-
-	//// first half goes left-right
-	//if (lane_number >= bot_limit && lane_number <= (lane_size * 0.5)) {
-	//	this->SetState(true);
-	//	this->SetPos(0, lane_number);
-	//	this->SetSpeed(1); // original title takes 10s for vehicles to cross screen
-	//	this->MoveX();
-	//}
-	//// second half goes right-left
-	//else {
-	//	this->SetState(true);
-	//	this->SetPos(GAMEWINX, lane_number);
-	//	this->SetSpeed(-1);
-	//	this->MoveX();
-	//}
+	if (!called)
+	{
+		this->SetPos(0, lane_number);
+		called = true;
+	}
 }

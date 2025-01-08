@@ -143,6 +143,7 @@
     <ClCompile Include="fg_Car.cpp" />
     <ClCompile Include="fg_LilyPad.cpp" />
     <ClCompile Include="fg_Locale.cpp" />
+    <ClCompile Include="fg_Log.cpp" />
     <ClCompile Include="fg_Vehicle.cpp" />
     <ClCompile Include="si_Alien.cpp" />
     <ClCompile Include="si_Barrier.cpp" />

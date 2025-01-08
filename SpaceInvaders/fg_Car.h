@@ -4,6 +4,7 @@
 class Car : public Vehicle {
 public:
 	Car() : m_state(true), m_lane_type(Locale::ROAD){}
+	Car(int x);
 
 	void Update() override;
 	char GetChar() { return kCarChar; }

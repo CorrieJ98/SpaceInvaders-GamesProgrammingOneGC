@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 #define GAMEWINY 30
 #define GAMEWINX 80
@@ -27,6 +28,3 @@
 #define FG_ROAD_LANES 8
 #define FG_START_LANES 4  
 #pragma endregion
-
-
-

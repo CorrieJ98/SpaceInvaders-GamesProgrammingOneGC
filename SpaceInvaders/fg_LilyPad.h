@@ -10,7 +10,6 @@ public:
 	void Update();
 
 	void Lifecycle();
-	
 	void Regrow();
 	void Decay();
 

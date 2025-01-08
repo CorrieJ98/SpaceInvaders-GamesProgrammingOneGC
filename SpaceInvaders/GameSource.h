@@ -51,8 +51,12 @@ public:
 #pragma region Frogger Pub
 	void InitFrogger();
 	void FG_SetPlayerPos();
-	void FG_SetVehiclePos();
 	void FG_SetLanes();
+	void FG_PopulateVehicleArrays();
+	void FG_SetCarPos();
+	void FG_SetLogPos();
+	void FG_SetLilypadPos();
+	void FG_SetHomePos();
 	void FG_ProcessInput();
 	void FG_UpdateGame();
 	void FG_SetGamePositions(int width, int height);

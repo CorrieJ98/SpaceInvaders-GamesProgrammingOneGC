@@ -6,6 +6,7 @@ class Log : public Vehicle {
 public:
 	Log() : m_state(true), m_lane_type(Locale::RIVER) {}
 
+	void Update() override;
 	char GetChar() { return kLogChar; }
 private:
 	bool m_is_moving, m_state;

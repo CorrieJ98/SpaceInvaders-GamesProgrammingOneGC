@@ -128,9 +128,15 @@ void GameSource::InitFrogger()
 	if (!m_game_initialised)
 	{
 		FG_SetPlayerPos();
-		FG_SetVehiclePos();
+		FG_PopulateVehicleArrays();
 		FG_SetLanes();
+		FG_SetCarPos();
+		FG_SetLogPos();
+		FG_SetLilypadPos();
 		m_game_initialised = true;
+
+
+		// TODO get characters moving across screen w/ collision
 	}
 }
 
@@ -140,7 +146,7 @@ void GameSource::FG_SetPlayerPos()
 	m_fg_frog->SetYPos(FG_FROG_Y);
 }
 
-void GameSource::FG_SetVehiclePos()
+void GameSource::FG_PopulateVehicleArrays()
 {
 	for (int i = 0; i < FG_MAX_CARS; i++)
 	{
@@ -156,6 +162,34 @@ void GameSource::FG_SetVehiclePos()
 	{
 		m_fg_lilypads[i] = LilyPad();
 	}
+}
+
+void GameSource::FG_SetCarPos()
+{
+	for (int i = 0; i < sizeof m_fg_cars / sizeof m_fg_cars[0]; i++)
+	{
+		m_fg_cars[i].SetPos(i * 3, m_road_lim.bot - (rand() % m_road_lim.size));
+	}
+}
+
+void GameSource::FG_SetLogPos()
+{
+	for (int i = 0; i < sizeof m_fg_logs / sizeof m_fg_logs[0]; i++)
+	{
+		m_fg_logs[i].SetPos(i * 3, m_river_lim.bot - (rand() % m_river_lim.size));
+	}
+}
+
+void GameSource::FG_SetLilypadPos()
+{
+	for (int i = 0; i < sizeof m_fg_lilypads / sizeof m_fg_lilypads[0]; i++)
+	{
+		m_fg_lilypads[i].SetPos(i * 3, m_river_lim.bot - (rand() % m_river_lim.size));
+	}
+}
+
+void GameSource::FG_SetHomePos()
+{
 }
 
 void GameSource::FG_SetLanes()
@@ -190,24 +224,24 @@ void GameSource::FG_UpdateGame()
 {
 #pragma region Car Movement
 	for (Car& car : m_fg_cars) {
-		car.SpawnVehicle(m_road_lim.bot, m_road_lim.size);
-		//car.MoveX();
+		//car.SpawnVehicle(m_road_lim.bot, m_road_lim.size);
+		car.Update();
 	}
 
 #pragma endregion
 
 #pragma region Log Movement
 	for (Log& log : m_fg_logs) {
-		log.SpawnVehicle(m_river_lim.bot, m_river_lim.size);
-//		log.MoveX();
+		//log.SpawnVehicle(m_river_lim.bot, m_river_lim.size);
+		log.Update();
 	}
 
 #pragma endregion
 
 #pragma region Lilypad Movement
 	for (LilyPad& lilypad : m_fg_lilypads) {
-		lilypad.SpawnVehicle(m_river_lim.bot, m_river_lim.size);
-//		lilypad.MoveX();
+		//lilypad.SpawnVehicle(m_river_lim.bot, m_river_lim.size);
+		lilypad.Update();
 	}
 
 #pragma endregion

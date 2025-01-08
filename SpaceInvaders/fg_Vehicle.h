@@ -18,6 +18,8 @@ public:
 
 	void SetLaneLimits(int lower_lim, int upper_lim, Locale::LaneTypes lane_type);
 
+	void Movement();
+	void MoveY();
 	void MoveX();
 	void ResetPos();
 
@@ -26,6 +28,6 @@ public:
 
 protected:
 	LaneLim m_lane_limits;
-	bool m_state;
+	bool m_state, m_is_moving_right, m_can_move;
 	int m_speed;
 };

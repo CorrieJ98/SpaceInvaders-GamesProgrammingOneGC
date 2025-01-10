@@ -21,9 +21,7 @@ public:
 	void Movement();
 	void MoveY();
 	void MoveX();
-	void ResetPos();
-
-	void SpawnVehicle(int bot_limit, int lane_size);
+	void ResetPos(bool is_moving_right);
 	
 
 protected:

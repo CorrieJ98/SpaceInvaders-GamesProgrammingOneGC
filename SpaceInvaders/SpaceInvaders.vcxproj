@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="fg_Car.cpp" />
+    <ClCompile Include="fg_Home.cpp" />
     <ClCompile Include="fg_LilyPad.cpp" />
     <ClCompile Include="fg_Locale.cpp" />
     <ClCompile Include="fg_Log.cpp" />

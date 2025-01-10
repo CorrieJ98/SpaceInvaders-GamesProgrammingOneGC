@@ -5,7 +5,7 @@ class LilyPad : public Vehicle {
 public:
 
 	LilyPad() : m_state(true), m_can_grow(false), m_is_grown(true), m_lane_type(Locale::RIVER) {}
-	LilyPad(const LilyPad& l) : m_state(l.m_state) {};
+	LilyPad(int x);
 
 	void Update();
 

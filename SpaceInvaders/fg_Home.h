@@ -4,6 +4,8 @@
 class Home : GameObject {
 public:
 	Home() : GameObject() {}
+	Home(int x);
+
 
 	void FillHome() { m_char = &m_kFullHomeChar; };
 	void EmptyHome() { m_char = &m_kEmptyHomeChar; }
@@ -14,12 +16,11 @@ public:
 
 	//char GetChar() { return *m_char; }	// I think this is correct notation
 	
-	// formatted because the laws of society and its norms failed
-	// to teach me manners - especially when I'm writing this at 3am
 	char GetChar() {
 		if (m_char == &m_kEmptyHomeChar){ return this->m_kEmptyHomeChar; }
 		else { return this->m_kFullHomeChar; }
 	}
+	bool GetFilledState();
 	
 
 protected:

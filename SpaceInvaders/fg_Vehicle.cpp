@@ -8,18 +8,11 @@ void Vehicle::SetLaneLimits(int lower_lim, int lane_size, Locale::LaneTypes lane
 }
 
 void Vehicle::Movement() {
-	if (m_state) {
+	MoveX();
 
-		if (m_can_move) {
-
-			MoveX();
-
-			if (this->m_xpos > 79 || this->m_xpos < 1) {
-				// MoveY();
-
-				this->SetState(false);
-			}
-		}
+	if (this->m_xpos > 79 || this->m_xpos < 1) {
+		this->SetState(true);
+		this->ResetPos(this->m_is_moving_right);
 	}
 }
 
@@ -39,22 +32,12 @@ void Vehicle::MoveY()
 	m_is_moving_right = !m_is_moving_right;
 }
 
-void Vehicle::ResetPos()
+void Vehicle::ResetPos(bool is_moving_right)
 {
-	this->SetPos(0, 0);
-	this->SetState(false);
-	
-	//this->SpawnVehicle();
-}
-
-void Vehicle::SpawnVehicle(int bot_limit, int lane_size)
-{
-	int lane_number = bot_limit - (rand() % lane_size);
-	bool called = false;
-
-	if (!called)
-	{
-		this->SetPos(0, lane_number);
-		called = true;
+	if (is_moving_right) {
+		this->SetPos(1, m_ypos);	
+	}
+	else {
+		this->SetPos(GAMEWINX - 1, m_ypos);
 	}
 }

@@ -60,6 +60,9 @@
     <ClCompile Include="fg_Log.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fg_Home.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="si_Alien.h">

@@ -133,6 +133,7 @@ void GameSource::InitFrogger()
 		FG_SetCarPos();
 		FG_SetLogPos();
 		FG_SetLilypadPos();
+
 		m_game_initialised = true;
 
 
@@ -190,6 +191,10 @@ void GameSource::FG_SetLilypadPos()
 
 void GameSource::FG_SetHomePos()
 {
+	// 8 . 16 . 16 . 16 . 8 //
+	for (int i = 0; i < sizeof m_fg_homes / sizeof m_fg_homes[0]; i++) {
+		m_fg_homes[i].SetPos((GAMEWINX / FG_HOMES) + (GAMEWINX / (2 * FG_HOMES)),m_river_lim.bot - 1);
+	}
 }
 
 void GameSource::FG_SetLanes()
@@ -356,10 +361,38 @@ void GameSource::FG_SetGamePositions(int width, int height)
 
 void GameSource::FG_CheckCollision(int width, int height)
 {
+	for (Log& log : m_fg_logs)
+	{
+		if (log.GetState()) {
+			if (log.GetXPos() == m_fg_frog->GetXPos() && log.GetYPos() == m_fg_frog->GetYPos())
+			{
+				m_fg_frog->Die();
+				FG_CheckGameCondition();
+			}
+		}
+	}
+
+	for (Car& car : m_fg_cars)
+	{
+		if (car.GetState()) {
+			if (car.GetXPos() == m_fg_frog->GetXPos() && car.GetYPos() == m_fg_frog->GetYPos())
+			{
+				m_fg_frog->Die();
+				FG_CheckGameCondition();
+			}
+		}
+	}
+
+	for (Home& home : m_fg_homes) {
+		
+	}
 }
 
 void GameSource::FG_CheckGameCondition()
 {
+	if (m_fg_frog->GetLivesRemaining() <= 0) {
+		m_gamestate = LOSS;
+	}
 }
 
 void GameSource::SI_ProcessInput()
@@ -549,8 +582,8 @@ void GameSource::GameLoop()
 		case FROGGER:
 			this->InitFrogger();
 			this->FG_ProcessInput();
-			this->FG_SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight());
 			this->FG_UpdateGame();
+			this->FG_SetGamePositions(m_game_window.GetWidth(), m_game_window.GetHeight());
 			this->FG_CheckCollision(m_game_window.GetWidth(), m_game_window.GetHeight());
 			this->SwapBuffers();
 			this->DrawGame(m_game_window.GetWidth(), m_game_window.GetHeight());

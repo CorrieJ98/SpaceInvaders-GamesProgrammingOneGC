@@ -1,8 +1,15 @@
 #include "fg_LilyPad.h"
 
+LilyPad::LilyPad(int x)
+{
+	this->m_xpos = x;
+	this->m_state = true;
+	this->m_can_move = true;
+}
+
 void LilyPad::Update()
 {
-
+	this->Movement();
 }
 
 void LilyPad::Lifecycle()

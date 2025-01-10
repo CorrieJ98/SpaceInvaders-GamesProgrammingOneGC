@@ -15,6 +15,7 @@ public:
 	void SetPos(int x, int y) { this->m_xpos = x, this->m_ypos = y; };
 	int GetXPos() { return this->m_xpos; };
 	int GetYPos() { return this->m_ypos; };
+	bool GetIsMovingRight() { return m_is_moving_right; }
 
 	void SetLaneLimits(int lower_lim, int upper_lim, Locale::LaneTypes lane_type);
 

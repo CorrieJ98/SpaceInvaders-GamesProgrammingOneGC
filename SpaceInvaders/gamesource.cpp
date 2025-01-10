@@ -366,9 +366,17 @@ void GameSource::FG_CheckCollision(int width, int height)
 		if (log.GetState()) {
 			if (log.GetXPos() == m_fg_frog->GetXPos() && log.GetYPos() == m_fg_frog->GetYPos())
 			{
-				m_fg_frog->Die();
-				FG_CheckGameCondition();
+				// if the frog stands on a log, match its speed
+				m_fg_frog->SetSpeed(log.GetIsMovingRight(), log.GetSpeed());
+				if (log.GetIsMovingRight()) {
+					m_fg_frog->SetXPos(m_fg_frog->GetXPos() + 1);
+				}else if(!log.GetIsMovingRight()){
+					m_fg_frog->SetXPos(m_fg_frog->GetXPos() - 1);
+				}
 			}
+
+			// reset its speed when it gets off the log
+			m_fg_frog->SetSpeed(1);
 		}
 	}
 
@@ -381,10 +389,6 @@ void GameSource::FG_CheckCollision(int width, int height)
 				FG_CheckGameCondition();
 			}
 		}
-	}
-
-	for (Home& home : m_fg_homes) {
-		
 	}
 }
 

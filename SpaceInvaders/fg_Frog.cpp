@@ -8,7 +8,7 @@ void Frog::Update()
 	if (GetAsyncKeyState(VK_UP) & 0x8000 || GetKeyState(0x57) & 0x8000)
 	{
 		if (m_ypos > GAMEWINY - (GAMEWINY - 1))
-			--m_ypos;
+			m_ypos -= m_speed;
 	}
 
 	// S or Down Arrow
@@ -38,4 +38,9 @@ void Frog::Die()
 {
 	--m_lives;
 	this->Reset();
+}
+
+void Frog::ReachedHome(int x)
+{
+
 }

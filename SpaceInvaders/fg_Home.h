@@ -6,7 +6,8 @@ public:
 	Home() : GameObject() {}
 	Home(int x);
 
-
+	Home GetHomeAtXPos(int x) { if (this->m_xpos == x) return *this; }
+	bool GetFilledState();
 	void FillHome() { m_char = &m_kFullHomeChar; };
 	void EmptyHome() { m_char = &m_kEmptyHomeChar; }
 
@@ -14,13 +15,12 @@ public:
 	int GetXPos() { return this->m_xpos; };
 	int GetYPos() { return this->m_ypos; };
 
-	//char GetChar() { return *m_char; }	// I think this is correct notation
 	
+	//char GetChar() { return *m_char; }	// I think this is correct notation
 	char GetChar() {
 		if (m_char == &m_kEmptyHomeChar){ return this->m_kEmptyHomeChar; }
 		else { return this->m_kFullHomeChar; }
 	}
-	bool GetFilledState();
 	
 
 protected:

@@ -18,7 +18,7 @@
 #define FG_FROG_Y 28
 #define FG_HOMES 4
 #define FG_MAX_LOGS 30
-#define FG_MAX_CARS 20
+#define FG_MAX_CARS 30
 #define FG_MAX_LILYPADS 4
 
 // these values cannot exceed the value of GAMEWINY
